@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dhDialogBox"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/dhSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dnIconLayout"
+            android:layout_width="50dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/dhIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/dr_circleborder"
+                android:padding="7dp"
+                android:tint="@color/blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_interval" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/dhDataLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dnIconLayout"
+            app:layout_constraintTop_toTopOf="@+id/dnIconLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dhDataTopLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp">
+
+                <TextView
+                    android:id="@+id/dhDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/dr_roundedbox"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/dhMeasureIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:padding="3dp"
+                    app:layout_constraintStart_toEndOf="@+id/dhDate"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_measure" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dhRoutineLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/dhIntervalLayout"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/dhReps"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/dr_roundedbox"
+                        android:backgroundTint="@color/greyLighter"
+                        android:gravity="center_vertical"
+                        android:inputType="number|numberDecimal"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/dhRepX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:gravity="center"
+                        android:text="X"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhReps" />
+
+                    <EditText
+                        android:id="@+id/dhSets"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dr_roundedbox"
+                        android:backgroundTint="@color/greyLighter"
+                        android:gravity="center_vertical"
+                        android:inputType="number|numberDecimal"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhRepX" />
+
+                    <TextView
+                        android:id="@+id/dhRepX2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:gravity="center"
+                        android:text="X"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhSets" />
+
+                    <EditText
+                        android:id="@+id/dhVars"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dr_roundedbox"
+                        android:backgroundTint="@color/greyLighter"
+                        android:gravity="center_vertical"
+                        android:inputType="number|numberDecimal"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhRepX2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dhIntervalLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/dr_roundedbox"
+                    android:backgroundTint="@color/greyLighter"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/dhMeasureIcon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/dhCount"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/dr_roundedbox"
+                        android:backgroundTint="@color/greyLighter"
+                        android:gravity="center_vertical"
+                        android:inputType="number|numberDecimal"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/dhX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:gravity="center"
+                        android:text="X"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhCount" />
+
+                    <EditText
+                        android:id="@+id/dhMins"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dr_roundedbox"
+                        android:backgroundTint="@color/greyLighter"
+                        android:gravity="center_vertical"
+                        android:inputType="number|numberDecimal"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhX" />
+
+                    <TextView
+                        android:id="@+id/dhColon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp"
+                        android:gravity="center"
+                        android:text=":"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhMins" />
+
+                    <EditText
+                        android:id="@+id/dhSecs"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dr_roundedbox"
+                        android:backgroundTint="@color/greyLighter"
+                        android:gravity="center_vertical"
+                        android:inputType="number|numberDecimal"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhColon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dhRunLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/dhMeasureIcon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/dhDistance"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/dr_roundedbox"
+                        android:backgroundTint="@color/greyLighter"
+                        android:gravity="center_vertical"
+                        android:inputType="number|numberDecimal"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/dhKM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="4dp"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="10dp"
+                        android:text="km"
+                        android:textColor="@color/textBlack"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dhDistance" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dhDataBottomLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp">
+
+                <TextView
+                    android:id="@+id/dhStart"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/dr_roundedbox"
+                    android:backgroundTint="@color/greyLighter"
+                    android:gravity="center_vertical"
+                    android:inputType="time"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dhStartIcon" />
+
+                <TextView
+                    android:id="@+id/dhFinish"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/dr_roundedbox"
+                    android:backgroundTint="@color/greyLighter"
+                    android:gravity="center_vertical"
+                    android:inputType="time"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dhFinishIcon" />
+
+                <ImageView
+                    android:id="@+id/dhDurationIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:padding="3dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dhFinish"
+                    app:srcCompat="@drawable/ic_timer" />
+
+                <TextView
+                    android:id="@+id/dhDuration"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:textAlignment="textStart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dhDurationIcon" />
+
+                <ImageView
+                    android:id="@+id/dhStartIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="7dp"
+                    android:tint="@color/green"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/dhStart"
+                    app:srcCompat="@drawable/ic_play" />
+
+                <ImageView
+                    android:id="@+id/dhFinishIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="7dp"
+                    android:tint="@color/red"
+                    app:layout_constraintStart_toEndOf="@+id/dhStart"
+                    app:layout_constraintTop_toTopOf="@+id/dhStart"
+                    app:srcCompat="@drawable/ic_pause" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/dhSave"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/dr_circle"
+        android:padding="10dp"
+        android:tint="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/dhDialogBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_save" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

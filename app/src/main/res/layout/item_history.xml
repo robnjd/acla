@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dnIconLayout"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/thIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/dr_circleborder"
+            android:backgroundTint="@color/blue"
+            android:padding="7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_interval" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dnIconLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/thDate"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="3dp"
+                android:text="TextView"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/thMeasureIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="3dp"
+                app:srcCompat="@drawable/ic_measure" />
+
+            <TextView
+                android:id="@+id/thMeasure"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="3dp"
+                android:text="TextView" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/thDurationIcon2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="5dp"
+                android:tint="@color/green"
+                app:srcCompat="@drawable/ic_play" />
+
+            <TextView
+                android:id="@+id/thStart"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:gravity="center_vertical"
+                android:paddingEnd="3dp"
+                android:text="TextView"
+                android:textAlignment="textStart" />
+
+            <ImageView
+                android:id="@+id/thDurationIcon3"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="3dp"
+                android:tint="@color/red"
+                app:srcCompat="@drawable/ic_pause" />
+
+            <TextView
+                android:id="@+id/thFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingEnd="6dp"
+                android:text="TextView"
+                android:textAlignment="textStart" />
+
+            <ImageView
+                android:id="@+id/thDurationIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="3dp"
+                app:srcCompat="@drawable/ic_timer" />
+
+            <TextView
+                android:id="@+id/thDuration"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="3dp"
+                android:text="TextView" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

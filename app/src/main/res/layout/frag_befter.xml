@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dbDialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dbBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/dbTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_vertical"
+            android:text="Choose before/after date range"
+            android:textColor="@color/textGrey"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dbBeforeText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:text="Before:"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dbTitle" />
+
+        <Spinner
+            android:id="@+id/dbBefore"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLight"
+            app:layout_constraintStart_toEndOf="@+id/dbBeforeText"
+            app:layout_constraintTop_toTopOf="@+id/dbBeforeText" />
+
+        <ImageView
+            android:id="@+id/dbBeforeDropdown"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/dbBefore"
+            app:layout_constraintTop_toTopOf="@+id/dbBefore"
+            app:srcCompat="@drawable/ic_dropdown" />
+
+        <TextView
+            android:id="@+id/dbAfterText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="After:"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dbBeforeText" />
+
+        <Spinner
+            android:id="@+id/dbAfter"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLight"
+            app:layout_constraintStart_toStartOf="@+id/dbBefore"
+            app:layout_constraintTop_toTopOf="@+id/dbAfterText" />
+
+        <ImageView
+            android:id="@+id/dbAfterDropdown"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/dbAfter"
+            app:layout_constraintTop_toTopOf="@+id/dbAfter"
+            app:srcCompat="@drawable/ic_dropdown" />
+
+        <ImageView
+            android:id="@+id/dbGo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/dr_circle"
+            android:padding="10dp"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dbAfter"
+            app:srcCompat="@drawable/ic_send" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

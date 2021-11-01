@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="themeattrs">
+        <attr name="base" format="color" />
+        <attr name="header" format="color" />
+        <attr name="textPrimary" format="color" />
+        <attr name="textSecondary" format="color" />
+    </declare-styleable>
+</resources>

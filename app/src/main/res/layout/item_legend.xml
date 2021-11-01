@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp">
+
+    <ImageView
+        android:id="@+id/tlColour0"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/dr_circle" />
+
+    <TextView
+        android:id="@+id/tlText0"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingRight="20dp"
+        android:textColor="@color/textBlack"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/tlColour1"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/dr_circle" />
+
+    <TextView
+        android:id="@+id/tlText1"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingRight="20dp"
+        android:textColor="@color/textBlack"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/tlColour2"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/dr_circle" />
+
+    <TextView
+        android:id="@+id/tlText2"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingRight="20dp"
+        android:textColor="@color/textBlack"
+        android:textSize="10sp" />
+
+</LinearLayout>

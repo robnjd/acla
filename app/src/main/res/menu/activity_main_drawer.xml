@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/mnu_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_session"
+            android:icon="@drawable/ic_whistle"
+            android:title="Session" />
+        <item
+            android:id="@+id/nav_tracker"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Tracker" />
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_chart"
+            android:title="Dashboard" />
+
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_clock"
+            android:title="History" />
+    </group>
+
+    <group
+        android:id="@+id/mnu_bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Settings" />
+    </group>
+</menu>

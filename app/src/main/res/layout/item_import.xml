@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/iimpBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dr_roundedbox"
+    android:backgroundTint="@color/white"
+    android:orientation="vertical"
+    android:paddingHorizontal="5dp">
+
+    <TextView
+        android:id="@+id/iimpFilename"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/textBlack" />
+
+</LinearLayout>

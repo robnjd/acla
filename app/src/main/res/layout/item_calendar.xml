@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tcDate1"
+            android:layout_width="39dp"
+            android:layout_height="39dp">
+
+            <ImageView
+                android:id="@+id/tcCircle1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_circle"
+                android:cropToPadding="false"
+                android:foregroundGravity="bottom"
+                android:paddingRight="-1dp"
+                android:paddingBottom="-1dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tcHalf1"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_half_circle"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcEntry1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcTopNum1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcBottomNum1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/tcSpace1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tcDate2"
+            android:layout_width="39dp"
+            android:layout_height="39dp">
+
+            <ImageView
+                android:id="@+id/tcCircle2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_circle"
+                android:cropToPadding="false"
+                android:foregroundGravity="bottom"
+                android:paddingRight="-1dp"
+                android:paddingBottom="-1dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tcHalf2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_half_circle"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcEntry2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcTopNum2"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcBottomNum2"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/tcSpace2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tcDate3"
+            android:layout_width="39dp"
+            android:layout_height="39dp">
+
+            <ImageView
+                android:id="@+id/tcCircle3"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_circle"
+                android:cropToPadding="false"
+                android:foregroundGravity="bottom"
+                android:paddingRight="-1dp"
+                android:paddingBottom="-1dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tcHalf3"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_half_circle"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcEntry3"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcTopNum3"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcBottomNum3"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/tcSpace3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tcDate4"
+            android:layout_width="39dp"
+            android:layout_height="39dp">
+
+            <ImageView
+                android:id="@+id/tcCircle4"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_circle"
+                android:cropToPadding="false"
+                android:foregroundGravity="bottom"
+                android:paddingRight="-1dp"
+                android:paddingBottom="-1dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tcHalf4"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_half_circle"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcEntry4"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcTopNum4"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcBottomNum4"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/tcSpace4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tcDate5"
+            android:layout_width="39dp"
+            android:layout_height="39dp">
+
+            <ImageView
+                android:id="@+id/tcCircle5"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_circle"
+                android:cropToPadding="false"
+                android:foregroundGravity="bottom"
+                android:paddingRight="-1dp"
+                android:paddingBottom="-1dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tcHalf5"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_half_circle"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcEntry5"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcTopNum5"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcBottomNum5"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/tcSpace5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tcDate6"
+            android:layout_width="39dp"
+            android:layout_height="39dp">
+
+            <ImageView
+                android:id="@+id/tcCircle6"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_circle"
+                android:cropToPadding="false"
+                android:foregroundGravity="bottom"
+                android:paddingRight="-1dp"
+                android:paddingBottom="-1dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tcHalf6"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_half_circle"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcEntry6"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcTopNum6"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcBottomNum6"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/tcSpace6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tcDate7"
+            android:layout_width="39dp"
+            android:layout_height="39dp">
+
+            <ImageView
+                android:id="@+id/tcCircle7"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_circle"
+                android:cropToPadding="false"
+                android:foregroundGravity="bottom"
+                android:paddingRight="-1dp"
+                android:paddingBottom="-1dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tcHalf7"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_half_circle"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcEntry7"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcTopNum7"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tcBottomNum7"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/dr_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/textBlack"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+
+</LinearLayout>

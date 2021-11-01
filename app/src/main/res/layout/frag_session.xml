@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sesLayoutWorkout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="@color/purple"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sesTop">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sesWorkoutGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/sesWorkoutIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:tint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_rep" />
+
+            <TextView
+                android:id="@+id/sesWorkoutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:fontFamily="monospace"
+                android:gravity="center_vertical"
+                android:text="Routine"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/sesWorkoutIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sesTop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="@color/orange"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/sesTitle"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:text="New Session"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sesLayoutTimer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="@color/white"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sesLayoutWorkout">
+
+        <TextView
+            android:id="@+id/sesDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Chronometer
+            android:id="@+id/sesChrono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/black_ops_one"
+            android:textColor="@color/textGrey"
+            android:textSize="36sp"
+            android:typeface="monospace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesDate" />
+
+        <TextView
+            android:id="@+id/sesTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/krona_one"
+            android:text="00:00:00"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesDate" />
+
+        <TextView
+            android:id="@+id/sesStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:text="00:00:00"
+            android:textColor="@color/textBlack"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/sesFinishTime"
+            app:layout_constraintTop_toTopOf="@+id/sesStartText" />
+
+        <TextView
+            android:id="@+id/sesFinishTime"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="00:00:00"
+            android:textColor="@color/textBlack"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/sesFinishText"
+            app:layout_constraintTop_toTopOf="@+id/sesFinishText" />
+
+        <TextView
+            android:id="@+id/sesStartText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="Start Time :"
+            android:textColor="@color/textGrey"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesChrono" />
+
+        <TextView
+            android:id="@+id/sesFinishText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
+            android:text="Finish Time :"
+            android:textColor="@color/textGrey"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesStartText" />
+
+        <ImageView
+            android:id="@+id/sesSplitSwitch"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/dr_circle"
+            android:padding="5dp"
+            android:tint="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/sesFinishTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sesStartTime"
+            app:srcCompat="@drawable/ic_bell" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sesLayCalculations"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="@color/white"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sesLaySplit">
+
+        <TextView
+            android:id="@+id/sesDurationText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="Duration :"
+            android:textColor="@color/textGrey"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sesDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/zero_time"
+            android:textColor="@color/textBlack"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/sesDurationText"
+            app:layout_constraintTop_toTopOf="@+id/sesDurationText" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sesIntervalLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesDurationText">
+
+            <TextView
+                android:id="@+id/sesIntervalsText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="Intervals :"
+                android:textColor="@color/textGrey"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/sesCount"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/greyLighter"
+                android:ems="10"
+                android:hint="25"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toEndOf="@+id/sesIntervalsText"
+                app:layout_constraintTop_toTopOf="@+id/sesIntervalsText" />
+
+            <TextView
+                android:id="@+id/sesX"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="X"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/sesCount"
+                app:layout_constraintTop_toTopOf="@+id/sesCount" />
+
+            <EditText
+                android:id="@+id/sesIntervalMins"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/greyLighter"
+                android:ems="10"
+                android:hint="1"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toEndOf="@+id/sesX"
+                app:layout_constraintTop_toTopOf="@+id/sesX" />
+
+            <TextView
+                android:id="@+id/sesIntervalMinsText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="mins"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/sesIntervalMins"
+                app:layout_constraintTop_toTopOf="@+id/sesCount" />
+
+            <EditText
+                android:id="@+id/sesIntervalSecs"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/greyLighter"
+                android:ems="10"
+                android:hint="0"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toEndOf="@+id/sesIntervalMinsText"
+                app:layout_constraintTop_toTopOf="@+id/sesX" />
+
+            <TextView
+                android:id="@+id/sesIntervalSecsText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="secs"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/sesIntervalSecs"
+                app:layout_constraintTop_toTopOf="@+id/sesCount" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sesRoutineLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesDurationText">
+
+            <TextView
+                android:id="@+id/sesRoutineText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="Routine :"
+                android:textColor="@color/textGrey"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/sesReps"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/greyLighter"
+                android:ems="10"
+                android:hint="10"
+                android:inputType="number"
+                android:nextFocusRight="@id/sesSets"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toEndOf="@+id/sesRoutineText"
+                app:layout_constraintTop_toTopOf="@+id/sesRoutineText" />
+
+            <TextView
+                android:id="@+id/sesRepsText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="reps"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/sesReps"
+                app:layout_constraintTop_toTopOf="@+id/sesReps" />
+
+            <TextView
+                android:id="@+id/sesRoutineX"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="X"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/sesRepsText"
+                app:layout_constraintTop_toTopOf="@+id/sesReps" />
+
+            <EditText
+                android:id="@+id/sesSets"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/greyLighter"
+                android:ems="10"
+                android:hint="4"
+                android:inputType="number"
+                android:nextFocusRight="@id/sesVars"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toEndOf="@+id/sesRoutineX"
+                app:layout_constraintTop_toTopOf="@+id/sesRoutineX" />
+
+            <TextView
+                android:id="@+id/sesSetsText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="sets"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/sesSets"
+                app:layout_constraintTop_toTopOf="@+id/sesReps" />
+
+            <EditText
+                android:id="@+id/sesVars"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/greyLighter"
+                android:ems="10"
+                android:hint="6"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toStartOf="@+id/sesReps"
+                app:layout_constraintTop_toBottomOf="@+id/sesReps" />
+
+            <TextView
+                android:id="@+id/sesVarsText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="variations"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/sesVars"
+                app:layout_constraintTop_toTopOf="@+id/sesVars" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sesRunLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesDurationText">
+
+            <TextView
+                android:id="@+id/sesDistanceText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="Distance :"
+                android:textColor="@color/textGrey"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/sesDistance"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/greyLighter"
+                android:ems="10"
+                android:hint="5"
+                android:inputType="number|numberDecimal"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack"
+                app:layout_constraintStart_toEndOf="@+id/sesDistanceText"
+                app:layout_constraintTop_toTopOf="@+id/sesDistanceText" />
+
+            <TextView
+                android:id="@+id/seskm"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:text="km"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/sesDistance"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sesLaySplit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="@color/textGrey"
+        android:elevation="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sesLayoutTimer">
+
+        <Chronometer
+            android:id="@+id/sesChronoSplit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/black_ops_one"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:typeface="monospace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sesSplitText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="monospace"
+            android:text="STOP"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sesChronoSplit" />
+
+        <ImageView
+            android:id="@+id/sesSplitPlay"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/white"
+            android:tint="@color/textGrey"
+            app:layout_constraintBottom_toBottomOf="@+id/sesChronoSplit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sesChronoSplit"
+            app:srcCompat="@drawable/ic_play" />
+
+        <ImageView
+            android:id="@+id/sesSplitRestart"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/white"
+            android:tint="@color/textGrey"
+            app:layout_constraintBottom_toBottomOf="@+id/sesChronoSplit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sesChronoSplit"
+            app:srcCompat="@drawable/ic_replay" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/sesSave"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/dr_circle"
+        android:backgroundTint="@color/blueLight"
+        android:elevation="6dp"
+        android:padding="10dp"
+        android:tint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_save" />
+
+    <ImageView
+        android:id="@+id/sesReset"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/dr_circle"
+        android:backgroundTint="@color/blueLight"
+        android:elevation="6dp"
+        android:padding="10dp"
+        android:tint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_reset" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_session">
+
+    <fragment
+        android:id="@+id/nav_session"
+        android:name="com.example.acla.ui.SessionFragment"
+        android:label="Session"
+        tools:layout="@layout/frag_session" />
+
+    <fragment
+        android:id="@+id/nav_tracker"
+        android:name="com.example.acla.ui.tracker.TrackerFragment"
+        android:label="Tracker"
+        tools:layout="@layout/frag_tracker" />
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.example.acla.ui.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/frag_dashboard" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.example.acla.ui.history.HistoryFragment"
+        android:label="History"
+        tools:layout="@layout/frag_history" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.acla.ui.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/frag_session" />
+
+
+</navigation>
