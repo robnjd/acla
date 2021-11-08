@@ -1,6 +1,7 @@
 package com.example.acla.backend
 
 import android.content.Context
+import android.util.Log.d
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -16,7 +17,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ChartHelper(private val context: Context) {
-
+    val TAG = "ChartHelper"
     private val com = CommonRoom(context)
 
     private val touch = mutableMapOf<String, Float>()
@@ -153,13 +154,14 @@ class ChartHelper(private val context: Context) {
             lstMarkers.add(mutableListOf(mapOf("colour" to (mapColours[line]?:0).toString())))
 
             val dataSet = LineDataSet(lstLine, line)
+
             if(rightAxis != null && line in rightAxis){ dataSet.axisDependency = YAxis.AxisDependency.RIGHT }
-            formatLine(dataSet, mapColours[line]?:0, false)
+            formatLine(dataSet, mapColours[line]?:0, false, mapColours[line])
 
             chData.addDataSet(dataSet)
         }
 
-        formatAxes(chartView, xRange, "line", periodType, if(rightAxis == null) false else true, suppressYear=suppressYear)
+        formatAxes(chartView, xRange, "line", periodType, rightAxis != null, suppressYear=suppressYear)
         chartView.data = chData
         chartView.invalidate()
 
@@ -192,7 +194,7 @@ class ChartHelper(private val context: Context) {
         val dataSet = PieDataSet(pieValues, "")
         dataSet.setColors(pieColours)
         dataSet.setValueFormatter(PercentFormatter(chartView))
-        chartView.setEntryLabelColor(ContextCompat.getColor(context, R.color.textBlack))
+        chartView.setEntryLabelColor(com.themeColour(R.attr.textPrimary))
 
         chData.addDataSet(dataSet)
         chData.setValueTextSize(0f)
@@ -304,11 +306,16 @@ class ChartHelper(private val context: Context) {
         xAxis.setDrawGridLines(false)
         //xAxis.setLabelCount(12, false)
         xAxis.yOffset = 0f
+        xAxis.axisLineColor = com.themeColour(R.attr.textPrimary)
+        xAxis.textColor = com.themeColour(R.attr.textPrimary)
 
         // Format y-axis
         leftYAxis.granularity = 1f
         leftYAxis.setDrawGridLines(true)
         leftYAxis.xOffset = 0f
+        leftYAxis.axisLineColor = com.themeColour(R.attr.textPrimary)
+        leftYAxis.textColor = com.themeColour(R.attr.textPrimary)
+
         rightYAxis.granularity = 1f
         rightYAxis.setEnabled(rightAxis)
         rightYAxis.setDrawGridLines(false)
@@ -325,16 +332,21 @@ class ChartHelper(private val context: Context) {
         tChart.getDescription().isEnabled = false
     }
 
-    fun formatLine(dsLine : LineDataSet, colour : Int, dataPoints : Boolean = true) {
+    fun formatLine(dsLine : LineDataSet, colour : Int, dataPoints : Boolean = true, fill : Int? = null) {
 
         dsLine.lineWidth = 2f
         dsLine.fillAlpha = 90
         dsLine.circleHoleRadius = 4f
 
         //dsLine.circleHoleColor = ContextCompat.getColor(context, mapColours[incType]!!)
-        dsLine.setColor(ContextCompat.getColor(context, colour))
+        dsLine.color = ContextCompat.getColor(context, colour)
         dsLine.setCircleColor(ContextCompat.getColor(context, colour))
         dsLine.setDrawCircles(dataPoints)
+        if(fill != null){
+            dsLine.setDrawFilled(true)
+            dsLine.fillColor = ContextCompat.getColor(context, fill)
+            dsLine.fillAlpha = 100
+        }
 
         dsLine.setDrawValues(false)
     }
@@ -344,7 +356,7 @@ class ChartHelper(private val context: Context) {
 
         val lim = LimitLine(lineAt)
 
-        lim.setLineColor(ContextCompat.getColor(context, colour))
+        lim.setLineColor(com.themeColour(R.attr.textPrimary))
         lim.setLineWidth(1f)
 
         lim.setLabel(label)

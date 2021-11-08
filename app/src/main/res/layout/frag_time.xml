@@ -6,6 +6,170 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tmeWorkoutButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/dr_pillbox_60"
+        android:backgroundTint="@color/white"
+        android:elevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tmeTitle">
+
+        <ImageView
+            android:id="@+id/tmeFilter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="7dp"
+            android:tint="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_filter" />
+
+        <View
+            android:id="@+id/tmeFilterDivider"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeFilter"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tmeAllButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:tint="@color/orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeFilterDivider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_all" />
+
+        <ImageView
+            android:id="@+id/tmeIntervalButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:tint="@color/greyLight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeAllButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_interval" />
+
+        <ImageView
+            android:id="@+id/tmeRunButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:tint="@color/greyLight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeIntervalButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_run" />
+
+        <ImageView
+            android:id="@+id/tmeRoutineButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="10dp"
+            android:tint="@color/greyLight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeRunButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_rep" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tmeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/krona_one"
+        android:text="Daily"
+        android:textColor="?attr/header"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tmeMetricButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dr_pillbox_60"
+        android:backgroundTint="@color/white"
+        android:elevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tmeWorkoutButtons">
+
+        <ImageView
+            android:id="@+id/tmeMetric"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="7dp"
+            android:tint="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_linechart" />
+
+        <View
+            android:id="@+id/tmeMetricDivider"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeMetric"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tmeSessionsButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:tint="@color/orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeMetricDivider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_whistle" />
+
+        <ImageView
+            android:id="@+id/tmeDurationButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="10dp"
+            android:tint="@color/greyLight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tmeSessionsButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_clock" />
+
+        <ImageView
+            android:id="@+id/tmeMeasuresButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="10dp"
+            android:tint="@color/greyLight"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tmeDurationButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_measure" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tmeYoYLayout"
         android:layout_width="0dp"
         android:layout_height="186dp"
@@ -15,6 +179,7 @@
         android:background="@drawable/dr_roundedbox"
         android:backgroundTint="@color/white"
         android:elevation="16dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -56,66 +221,63 @@
             android:nestedScrollingEnabled="true"
             app:layout_constraintEnd_toEndOf="@+id/tmeYoYChart"
             app:layout_constraintStart_toStartOf="@+id/tmeYoYChart"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+        </ListView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tmeTimeLayout"
+    <LinearLayout
+        android:id="@+id/tmeGraphsLayout"
         android:layout_width="0dp"
-        android:layout_height="180dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_weight="1"
-        android:background="@drawable/dr_roundedbox"
-        android:backgroundTint="@color/white"
-        android:elevation="16dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tmePieLayout"
-        app:layout_constraintTop_toBottomOf="@+id/tmeYoYLayout">
-
-        <com.github.mikephil.charting.charts.HorizontalBarChart
-            android:id="@+id/tmeTimeChart"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </com.github.mikephil.charting.charts.HorizontalBarChart>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tmePieLayout"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/dr_roundedbox"
-        android:backgroundTint="@color/white"
-        android:elevation="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tmeYoYLayout">
+        app:layout_constraintTop_toBottomOf="@+id/tmeMetricButtons">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tmeTimeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tmeGraphMetric"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="mins"
+                android:textColor="?attr/textPrimary"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/tmeTimeChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </com.github.mikephil.charting.charts.HorizontalBarChart>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/tmePieChart"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_weight="1">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.github.mikephil.charting.charts.PieChart>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

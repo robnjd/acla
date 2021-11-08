@@ -1,239 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/calMonthLayout"
+        android:id="@+id/calCenterLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/dr_roundedbox"
-        android:backgroundTint="@color/white"
-        android:elevation="16dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/calTitle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/calMonthTitleLayout"
+            android:id="@+id/calWeekLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/dr_roundedbox"
-            android:backgroundTint="@color/textBlack"
+            android:backgroundTint="@color/white"
+            android:elevation="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/calMonthTitle"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/calWeekTitleLayout"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="Month"
-                android:textColor="@color/white"
-                android:textSize="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/textBlack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/calMonthHeader"
+                <TextView
+                    android:id="@+id/calWeekTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="Week"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ListView
+                android:id="@+id/calWeekTable"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:orientation="horizontal"
-                android:visibility="visible"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:divider="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/calMonthTitle">
+                app:layout_constraintTop_toBottomOf="@+id/calWeekTitleLayout"
+                app:layout_constraintVertical_bias="0.0">
 
-                <TextView
-                    android:id="@+id/calMon"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Mon"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+            </ListView>
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/calTue"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Tue"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/calWed"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Wed"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/calThu"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Thu"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/calFri"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Fri"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/calSat"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Sat"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/calSun"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Sun"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ListView
-            android:id="@+id/calMonthTable"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/calYearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:divider="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/white"
+            android:elevation="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calMonthTitleLayout"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/calMonthLayout">
 
-        </ListView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/calYearTitleLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/textBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/calYearTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="Year"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ListView
+                android:id="@+id/calYearTable"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:divider="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calYearTitleLayout"
+                app:layout_constraintVertical_bias="0.0">
+
+            </ListView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/calMonthLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/white"
+            android:elevation="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calWeekLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/calMonthTitleLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/textBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/calMonthTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="Month"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/calMonthHeader"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/calMonthTitle">
+
+                    <TextView
+                        android:id="@+id/calMon"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Mon"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/calTue"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Tue"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/calWed"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Wed"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/calThu"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Thu"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/calFri"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Fri"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/calSat"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Sat"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/calSun"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Sun"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ListView
+                android:id="@+id/calMonthTable"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:divider="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calMonthTitleLayout"
+                app:layout_constraintVertical_bias="0.0">
+
+            </ListView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/calYearLayout"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/calTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/dr_roundedbox"
-        android:backgroundTint="@color/white"
-        android:elevation="16dp"
+        android:fontFamily="@font/krona_one"
+        android:text="Calendar"
+        android:textColor="?attr/header"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calMonthLayout">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/calYearTitleLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/dr_roundedbox"
-            android:backgroundTint="@color/textBlack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/calYearTitle"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="Year"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ListView
-            android:id="@+id/calYearTable"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:divider="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calYearTitleLayout"
-            app:layout_constraintVertical_bias="0.0">
-
-        </ListView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

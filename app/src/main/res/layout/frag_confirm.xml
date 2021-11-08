@@ -10,24 +10,25 @@
         android:id="@+id/dcBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/dr_roundedbox"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="?attr/base"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/dcText"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="50dp"
             android:gravity="center_vertical"
+            android:maxWidth="200dp"
             android:text="Are you sure?"
+            android:textColor="?attr/textSecondary"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,7 @@
             android:id="@+id/dcYes"
             android:layout_width="75dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="-25dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/dr_roundedbox"
             android:elevation="16dp"
@@ -47,14 +48,14 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/dcText"
             app:layout_constraintTop_toTopOf="@+id/dcNo" />
 
         <TextView
             android:id="@+id/dcNo"
             android:layout_width="75dp"
             android:layout_height="30dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="-25dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/dr_roundedbox"
             android:elevation="16dp"
@@ -63,7 +64,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/dcText"
             app:layout_constraintTop_toBottomOf="@+id/dcText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

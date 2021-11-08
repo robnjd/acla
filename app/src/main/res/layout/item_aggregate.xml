@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/iaggRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iaggWorkoutIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/dr_circleborder"
+        android:backgroundTint="@color/green"
+        android:padding="5dp"
+        android:tint="@color/green"
+        app:layout_constraintBottom_toBottomOf="@+id/iaggMeasure"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_run" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iaggMeasure" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/iaggSession"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iaggWorkoutIcon"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iaggSessionsIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="2dp"
+            android:tint="?attr/textPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_whistle" />
+
+        <TextView
+            android:id="@+id/iaggSessionsTitle"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="Sessions"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iaggSessionsIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iaggSessionsValue"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="1,000 reps"
+            android:textAlignment="center"
+            android:textColor="?attr/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/iaggSessionsTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iaggSessionsDeltaIcon"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:padding="5dp"
+            app:layout_constraintStart_toEndOf="@+id/iaggSessionsValue"
+            app:srcCompat="@drawable/ic_trendingup" />
+
+        <TextView
+            android:id="@+id/iaggSessionsDelta"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="-100%"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iaggSessionsDeltaIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/iaggDuration"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iaggWorkoutIcon"
+        app:layout_constraintTop_toBottomOf="@+id/iaggSession">
+
+        <ImageView
+            android:id="@+id/iaggDurationIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="3dp"
+            android:tint="?attr/textPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_clock" />
+
+        <TextView
+            android:id="@+id/iaggDurationTitle"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="Duration"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iaggDurationIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iaggDurationValue"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="00:00:00"
+            android:textAlignment="center"
+            android:textColor="?attr/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/iaggDurationTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iaggDurationDeltaIcon"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:padding="5dp"
+            app:layout_constraintStart_toEndOf="@+id/iaggDurationValue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_trendingup" />
+
+        <TextView
+            android:id="@+id/iaggDurationDelta"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="-100%"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iaggDurationDeltaIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/iaggMeasure"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iaggWorkoutIcon"
+        app:layout_constraintTop_toBottomOf="@+id/iaggDuration">
+
+        <ImageView
+            android:id="@+id/iaggMeasuresIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="2dp"
+            android:tint="?attr/textPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_measure" />
+
+        <TextView
+            android:id="@+id/iaggMeasuresTitle"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="Measures"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iaggMeasuresIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iaggMeasuresValue"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="100,000 reps"
+            android:textAlignment="center"
+            android:textColor="?attr/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/iaggMeasuresTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iaggMeasuresDeltaIcon"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:padding="5dp"
+            app:layout_constraintStart_toEndOf="@+id/iaggMeasuresValue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_trendingup" />
+
+        <TextView
+            android:id="@+id/iaggMeasuresDelta"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:text="-100%"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iaggMeasuresDeltaIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

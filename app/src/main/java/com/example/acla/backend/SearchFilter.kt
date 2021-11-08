@@ -17,9 +17,10 @@ class SearchFilter(private val context: Context, private val searchLayout: Const
 
     lateinit var layFilter : ConstraintLayout
     lateinit var btnPeriod : TextView
-    lateinit var btnMetric : ImageView
     lateinit var btnSearch : ImageView
     lateinit var btnDate : TextView
+    lateinit var btnBack : ImageView
+    lateinit var btnNext : ImageView
 
     var period = "Monthly"
     var metric = "count"
@@ -44,11 +45,6 @@ class SearchFilter(private val context: Context, private val searchLayout: Const
             btnPeriod.text = mapIcons["period"]!![period]!!.toString()
             btnPeriod.setTextColor(ContextCompat.getColor(context, periodColours[period]!!))
             changeTimeFrame(period, 0)
-        }
-
-        btnMetric.setOnClickListener {
-            metric = com.switch(metric, listOf("count", "duration", "measure"))
-            btnMetric.setImageResource(mapIcons["metric"]!![metric]!!.toString().toInt())
         }
 
         searchLayout.setOnTouchListener(object: OnSwipeTouchListener(context){
@@ -77,6 +73,14 @@ class SearchFilter(private val context: Context, private val searchLayout: Const
             }
         } )
 
+        btnBack.setOnClickListener {
+            changeTimeFrame(period, -1)
+        }
+
+        btnNext.setOnClickListener {
+            changeTimeFrame(period, 1)
+        }
+
         btnDate.setOnClickListener {
             btnDate.text = convertDate(btnDate.text.toString()).format(com.dmyFormatter)
             com.showCalendar(btnDate)
@@ -93,14 +97,16 @@ class SearchFilter(private val context: Context, private val searchLayout: Const
 
             if (vwName.contains("FilterPeriod")) {
                 btnPeriod = vw as TextView
-            } else if (vwName.contains("FilterMetric")) {
-                btnMetric = vw as ImageView
             } else if (vwName.contains("SearchIcon")) {
                 btnSearch = vw as ImageView
             } else if (vwName.contains("FilterDate")) {
                 btnDate = vw as TextView
             } else if (vwName.contains("FilterLayout")) {
                 layFilter = vw as ConstraintLayout
+            } else if (vwName.contains("Back")) {
+                btnBack = vw as ImageView
+            } else if (vwName.contains("Next")) {
+                btnNext = vw as ImageView
             }
 
             if (vw is ConstraintLayout) {
@@ -146,6 +152,7 @@ class SearchFilter(private val context: Context, private val searchLayout: Const
         }
 
         btnDate.text = timeFrame
+        setStartEnd(convertDate(timeFrame), period)
     }
 
     private fun convertDate(strDate : String) : LocalDate {
@@ -217,6 +224,16 @@ class SearchFilter(private val context: Context, private val searchLayout: Const
             else    -> startDate.plusDays(1)
         }.minusDays(1)
 
+    }
+
+    private fun setStartEnd(date: LocalDate, period: String) {
+        startDate = when(period){
+            "Weekly"    -> date.minusDays((if(date.dayOfWeek.value == 0) 7 else date.dayOfWeek.value - 1).toLong())
+            "Monthly"   -> date.minusDays(date.dayOfMonth.toLong()-1)
+            "Yearly"    -> date.minusDays(date.dayOfYear.toLong()-1)
+            else        -> date
+        }
+        endDate = dateDelta(1, period, startDate, false).minusDays(1L)
     }
 
 }

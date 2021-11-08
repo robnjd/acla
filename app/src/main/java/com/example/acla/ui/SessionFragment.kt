@@ -4,6 +4,7 @@ import android.media.AudioManager
 import android.media.ToneGenerator
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,17 +17,14 @@ import com.example.acla.R
 import com.example.acla.backend.CommonRoom
 import com.example.acla.backend.DatabaseHelper
 import com.example.acla.backend.Session
-import kotlinx.android.synthetic.main.frag_entry.view.*
 import kotlinx.android.synthetic.main.frag_session.view.*
-import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class SessionFragment : Fragment() {
-
+    val TAG = "SessionFragment"
     val vmMain: MainViewModel by activityViewModels()
     val dmyFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     
@@ -41,9 +39,9 @@ class SessionFragment : Fragment() {
     var splitStop = 0L
     var mainTimer = "stopped"
     var splitTimer = "stopped"
+    val workouts = listOf("Interval", "Run", "Routine")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         return inflater.inflate(R.layout.frag_session, container, false)
     }
 
@@ -53,14 +51,16 @@ class SessionFragment : Fragment() {
         com = CommonRoom(requireContext())
         db = DatabaseHelper(requireContext())
         frag = view
-        
+
+        val prefs = db.readPrefs()
         val today = LocalDate.now()
 
-        var workout = "Routine"
+        var workout = prefs["workout"]?:"Routine"
         var showSwitch = false
+        setDefaults(prefs)
 
         // Initialize
-        frag.sesDate.text = today.format(dmyFormatter)
+        frag.sesDate.text = today.format(com.daydmonyFormatter)
         frag.sesChrono.typeface = ResourcesCompat.getFont(requireContext(), R.font.black_ops_one)
         frag.sesChrono.textSize = 80f
         frag.sesChronoSplit.typeface = ResourcesCompat.getFont(requireContext(), R.font.black_ops_one)
@@ -71,7 +71,7 @@ class SessionFragment : Fragment() {
         // Setup Listeners
         frag.sesLayoutWorkout.setOnClickListener {
 
-            workout = com.switch(workout, listOf("Routine", "Interval", "Run"))
+            workout = com.switch(workout, workouts)
             frag.sesWorkoutTitle.text = workout
             val icon = com.workoutIcon(workout)
             frag.sesWorkoutIcon.setImageResource(icon["img"]!!)
@@ -82,6 +82,7 @@ class SessionFragment : Fragment() {
                     frag.sesIntervalLayout.visibility = View.VISIBLE
                     frag.sesRunLayout.visibility = View.GONE
                     frag.sesRoutineLayout.visibility = View.GONE
+                    frag.sesSplitSwitch.visibility = View.VISIBLE
                     if(showSwitch) frag.sesLaySplit.visibility = View.VISIBLE
                 }
                 "Run"       -> {
@@ -89,20 +90,21 @@ class SessionFragment : Fragment() {
                     frag.sesRunLayout.visibility = View.VISIBLE
                     frag.sesRoutineLayout.visibility = View.GONE
                     frag.sesLaySplit.visibility = View.GONE
+                    frag.sesSplitSwitch.visibility = View.GONE
                 }
                 "Routine"   -> {
                     frag.sesRoutineLayout.visibility = View.VISIBLE
                     frag.sesIntervalLayout.visibility = View.GONE
                     frag.sesRunLayout.visibility = View.GONE
                     frag.sesLaySplit.visibility = View.GONE
+                    frag.sesSplitSwitch.visibility = View.GONE
                 }
             }
         }
 
         frag.sesSave.setOnClickListener {
-
             val newSession = Session()
-            newSession.date = LocalDate.parse(frag.sesDate.text.toString(), com.dmyFormatter)
+            newSession.date = LocalDate.parse(frag.sesDate.text.toString(), com.daydmonyFormatter)
             newSession.workout = workout
             newSession.start = LocalTime.parse(frag.sesStartTime.text.toString(), newSession.hms)
             newSession.finish = LocalTime.parse(frag.sesFinishTime.text.toString(), newSession.hms)
@@ -110,7 +112,7 @@ class SessionFragment : Fragment() {
             newSession.measure = when(workout) {
                 "Interval"  -> "${com.nullHint(frag.sesCount)} X ${com.nullHint(frag.sesIntervalMins)}:${com.nullHint(frag.sesIntervalSecs).padStart(2,'0')}"
                 "Run"       -> com.nullHint(frag.sesDistance)
-                "Routine"   -> "${com.nullHint(frag.sesReps)} X ${com.nullHint(frag.sesSets)} X ${com.nullHint(frag.sesVars)}"
+                "Routine"   -> "${com.nullHint(frag.sesReps)} X ${com.nullHint(frag.sesSets)} X ${com.nullHint(frag.sesForms)}"
                 else        -> ""
             }
 
@@ -159,7 +161,6 @@ class SessionFragment : Fragment() {
         }
 
         frag.sesChronoSplit.setOnChronometerTickListener {
-
             if(frag.sesChronoSplit.base < SystemClock.elapsedRealtime()) {
                 val sound = when(interval){
                     "work"  -> ToneGenerator.TONE_CDMA_EMERGENCY_RINGBACK
@@ -184,7 +185,6 @@ class SessionFragment : Fragment() {
                 }
             }
         }
-
     }
 
     fun clickFAB() {
@@ -194,7 +194,7 @@ class SessionFragment : Fragment() {
         }
     }
 
-    fun timerSwitch(state: String) : String {
+    private fun timerSwitch(state: String) : String {
 
         val time = LocalDateTime.now().toLocalTime().toString()
         val newState = com.switch(state, listOf("stopped", "running"))
@@ -230,7 +230,7 @@ class SessionFragment : Fragment() {
         return newState
     }
 
-    fun splitSwitch(state: String) : String {
+    private fun splitSwitch(state: String) : String {
 
         val newState = com.switch(state, listOf("stopped", "running"))
 
@@ -255,7 +255,7 @@ class SessionFragment : Fragment() {
         return newState
     }
 
-    fun changeInterval(start: Long = 0L, flip: Boolean = true) {
+    private fun changeInterval(start: Long = 0L, flip: Boolean = true) {
 
         interval = if(flip) com.switch(interval, listOf("work", "rest")) else interval
 
@@ -287,5 +287,25 @@ class SessionFragment : Fragment() {
         frag.sesChronoSplit.isCountDown = true
         frag.sesChronoSplit.start()
     }
+
+    fun setDefaults(prefs: MutableMap<String, String>) {
+
+        val mInterval = prefs["measureInterval"]?.split(" X ")
+        val mRun = prefs["measureRun"]
+        val mRoutine = prefs["measureRoutine"]?.split(" X ")
+        d(TAG, prefs.toString())
+        if(mInterval?.size ?: 0 > 1) {
+            frag.sesCount.hint = mInterval!![0]
+            frag.sesIntervalMins.hint = mInterval[1].split(":")[0]
+            frag.sesIntervalSecs.hint = mInterval[1].split(":")[1]
+        }
+        frag.sesDistance.hint = mRun
+        if(mRoutine?.size ?: 0 > 2) {
+            frag.sesReps.hint = mRoutine!![0]
+            frag.sesSets.hint = mRoutine[1]
+            frag.sesForms.hint = mRoutine[2]
+        }
+    }
+
 
 }

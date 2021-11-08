@@ -2,30 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/diDialog"
+    android:id="@+id/imgDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/diBackground"
-        android:layout_width="wrap_content"
+        android:id="@+id/imgBackground"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/dr_roundedbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/diImage"
-            android:layout_width="300dp"
+            android:id="@+id/imgImage"
+            android:layout_width="0dp"
             android:layout_height="400dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/dr_roundedbox"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/dr_roundedbox_top"
             android:backgroundTint="@color/white"
             android:cropToPadding="true"
             android:padding="5dp"
@@ -36,41 +36,74 @@
             app:srcCompat="@drawable/dr_circle" />
 
         <TextView
-            android:id="@+id/diTitle"
+            android:id="@+id/imgTitle"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/dr_roundedbox"
+            android:background="@drawable/dr_roundedbox_bottom"
             android:backgroundTint="@color/white"
-            android:gravity="center"
+            android:gravity="center|top"
             android:text="02/02/2020"
+            android:textColor="@color/textBlack"
             android:textSize="16dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/diImage"
-            app:layout_constraintStart_toStartOf="@+id/diImage"
-            app:layout_constraintTop_toBottomOf="@+id/diImage" />
+            app:layout_constraintEnd_toEndOf="@+id/imgImage"
+            app:layout_constraintStart_toStartOf="@+id/imgImage"
+            app:layout_constraintTop_toBottomOf="@+id/imgImage" />
+
+        <LinearLayout
+            android:id="@+id/imgButtonLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgTitle">
+
+            <TextView
+                android:id="@+id/imgBefore"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/dr_pillbox_60"
+                android:backgroundTint="@color/blueLight"
+                android:gravity="center"
+                android:text="Set Before"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/imgAfter"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/dr_pillbox_60"
+                android:backgroundTint="@color/green"
+                android:gravity="center"
+                android:text="Set After"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/diDelete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:id="@+id/imgDelete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/dr_circle"
+            android:backgroundTint="@color/orange"
+            android:padding="10dp"
             android:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/diTitle"
-            app:layout_constraintTop_toBottomOf="@+id/diTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete" />
 
-        <ImageView
-            android:id="@+id/diCamera"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:tint="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/diTitle"
-            app:layout_constraintTop_toBottomOf="@+id/diTitle"
-            app:srcCompat="@drawable/ic_menu_camera" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

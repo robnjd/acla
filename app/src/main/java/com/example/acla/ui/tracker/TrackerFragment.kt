@@ -1,13 +1,8 @@
 package com.example.acla.ui.tracker
 
 import android.Manifest
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.media.ExifInterface
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
@@ -16,9 +11,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.activityViewModels
@@ -30,7 +23,11 @@ import com.example.acla.backend.TableAdapter
 import kotlinx.android.synthetic.main.frag_tracker.view.*
 import java.io.File
 import java.time.LocalDate
-import java.util.*
+import android.app.ProgressDialog
+import android.os.Looper
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
+import java.util.concurrent.Executors
 
 class TrackerFragment : Fragment() {
 
@@ -42,10 +39,12 @@ class TrackerFragment : Fragment() {
     var ordered = mutableListOf<LocalDate>()
     val today = LocalDate.now()
 
-    val BEFTER = 0
+    private val mExecutor = Executors.newSingleThreadExecutor()
+    lateinit var mProgressDialog: ProgressDialog
+
     val IMAGE = 1
-    val CAMERA_REQUEST = 1888
-    val MY_CAMERA_PERMISSION_CODE = 1000
+    private val CAMERA_REQUEST = 1888
+    private val MY_CAMERA_PERMISSION_CODE = 1000
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -66,16 +65,14 @@ class TrackerFragment : Fragment() {
         handleRefresh()
 
         // Listeners
-        frag.trkDateButton.setOnClickListener {
-            val dialogBefter = BefterDialog(ordered)
-            dialogBefter.setTargetFragment(this, BEFTER)
-            dialogBefter.show(parentFragmentManager, "Befter")
-        }
-
         frag.trkPlayButton.setOnClickListener {
             val from = LocalDate.parse(frag.trkBeforeDate.text, com.dmyFormatter)
             val to = LocalDate.parse(frag.trkAfterDate.text, com.dmyFormatter)
-            playGIF(from, to)
+            if(from > to) {
+                Toast.makeText(requireContext(), "Before date is later than after date!", Toast.LENGTH_LONG).show()
+            } else {
+                playGIF(from, to)
+            }
         }
 
         frag.trkPrevYear.setOnClickListener {
@@ -94,37 +91,6 @@ class TrackerFragment : Fragment() {
             changeCalendar("month", "next")
         }
 
-    }
-
-
-    private fun handleBefter(data: Intent?) {
-        val before = LocalDate.parse(data?.extras?.getString("before"), com.ymdFormatter)
-        val after = LocalDate.parse(data?.extras?.getString("after"), com.ymdFormatter)
-        getBefter(before, after)
-    }
-
-    fun getImages() {
-
-        // Get an ordered list of files from the /images folder
-        ordered.clear()
-        vmMain.mapExtensions.value?.clear()
-        vmMain.mapPictures.value?.clear()
-
-        vmMain.locPictures.value!!.listFiles().forEach{
-
-            if(it.isFile && it.extension in listOf("jpg", "png")){
-                val date = try {
-                    LocalDate.parse(it.nameWithoutExtension.substring(0, 10), com.ymdFormatter)
-                } catch(e:Exception){
-                    null
-                }
-
-                if(date != null) {
-                    ordered.add(com.datePosition(date, ordered), date)
-                    vmMain.mapExtensions.value!![date] = it.extension
-                }
-            }
-        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
@@ -150,67 +116,113 @@ class TrackerFragment : Fragment() {
 
         when(requestCode) {
             CAMERA_REQUEST  -> handleRefresh()
-            BEFTER          -> handleBefter(data)
-            IMAGE           ->{ if(data.extras?.getString("camera") != null) {
-                openCamera(data.extras!!.getString("camera")!!)
-            }
-                handleRefresh() }
+            IMAGE           -> when(data.extras?.getString("function")) {
+                                    "before"    ->  handleBefter(data, "before")
+                                    "after"     ->  handleBefter(data, "after")
+                                    "camera"    ->{ openCamera(data.extras!!.getString("date")!!)
+                                                    handleRefresh() }
+                                    else        ->  handleRefresh() }
         }
-    }
-
-    fun handleRefresh() {
-        if(ordered.isEmpty()) return
-        getImages()
-        getBefter(ordered[0], ordered.last())
-        getCalendar()
     }
 
     fun clickFAB() {
         openCamera(today.format(com.ymdFormatter))
     }
 
-
-    fun getBefter(before: LocalDate, after: LocalDate) {
-
-        // Place images into Before/After image views
-
-        if(before !in vmMain.mapPictures.value!!.keys) {
-            vmMain.fileImage(before)
-        }
-
-        if(after !in vmMain.mapPictures.value!!.keys) {
-            vmMain.fileImage(after)
-        }
-
-        frag.trkBeforeImage.setImageBitmap(vmMain.mapPictures.value!![before])
-        frag.trkBeforeDate.text = before.format(com.dmyFormatter)
-
-        frag.trkAfterImage.setImageBitmap(vmMain.mapPictures.value!![after])
-        frag.trkAfterDate.text = after.format(com.dmyFormatter)
-    }
-
-    fun changeCalendar(period: String, prevnext: String) {
-
-        // Change the month shown in the Calendar table
-
-        val cal = LocalDate.parse("01 ${com.decap(frag.trkMonth.text.toString())} ${frag.trkYear.text}", com.dmonthyrFormatter)
-        val pm = (if(prevnext == "prev") -1 else 1).toLong()
-
-        if(cal.withDayOfMonth(1) > LocalDate.now()){
-            return
-        }
-
-        when(period){
-            "year"  -> frag.trkYear.text = (cal.year + pm).toString()
-            "month" ->{ frag.trkMonth.text = cal.plusMonths(pm).month.name
-                frag.trkYear.text = cal.plusMonths(pm).year.toString() }
-        }
-
+    private fun handleRefresh() {
+        //if(ordered.isEmpty()) return
+        listImages()
+        getBefter(ordered[0], ordered.last())
         getCalendar()
     }
 
+    private fun handleBefter(data: Intent?, befter: String) {
+        val date = LocalDate.parse(data?.extras?.getString("date"), com.ymdFormatter)
+
+        when(befter){
+            "before"    -> getBefter(before=date)
+            "after"     -> getBefter(after=date)
+        }
+    }
+
+
+    // Before/after functions --------------------------
+    private fun getBefter(before: LocalDate?=null, after: LocalDate?=null) {
+
+        // Place images into Before/After image views
+
+        val loadDates = mutableListOf<LocalDate>()
+
+        for(ba in listOf(before, after)) {
+            if(ba != null && ba !in vmMain.mapPictures.value!!.keys) loadDates.add(ba)
+        }
+
+        loadImages(loadDates).addOnSuccessListener {
+            showBefter(before, after)
+        }
+    }
+
+    private fun showBefter(before: LocalDate? = null, after: LocalDate? = null) {
+
+        if(before != null) {
+            frag.trkBeforeImage.setImageBitmap(vmMain.mapPictures.value!![before])
+            frag.trkBeforeDate.text = before.format(com.dmyFormatter)
+        }
+        if(after != null) {
+            frag.trkAfterImage.setImageBitmap(vmMain.mapPictures.value!![after])
+            frag.trkAfterDate.text = after.format(com.dmyFormatter)
+        }
+    }
+
+    private fun playGIF(from: LocalDate, to: LocalDate) {
+
+        // Cycle the after image through dates between from and to
+
+        val start = ordered.indexOf(from)
+        val end = ordered.indexOf(to)
+
+        val loadDates = mutableListOf<LocalDate>()
+
+        for(d in start..end) {
+            if(ordered[d] !in vmMain.mapPictures.value!!.keys) loadDates.add(ordered[d])
+        }
+
+        frag.trkBefore.visibility = View.GONE
+        frag.trkLeftSpace.visibility = View.VISIBLE
+        frag.trkRightSpace.visibility = View.VISIBLE
+
+        loadImages(loadDates).addOnSuccessListener {
+            frag.trkBeforeImage.setImageBitmap(vmMain.mapPictures.value!![from])
+            frag.trkBeforeDate.text = from.format(com.dmyFormatter)
+            frag.trkAfterImage.setImageBitmap(vmMain.mapPictures.value!![from])
+            frag.trkAfterDate.text = from.format(com.dmyFormatter)
+
+            var i = start
+            val gifHandler = Handler(Looper.getMainLooper())
+            val r = object : Runnable {
+                override fun run() {
+                    i += 1
+                    if(i <= end) {
+                        frag.trkAfterImage.setImageBitmap(vmMain.mapPictures.value!![ordered[i]])
+                        frag.trkAfterDate.text = ordered[i].format(com.dmyFormatter)
+                        gifHandler.postDelayed(this, if(i == end) 1000L else 500L)
+                    } else {
+                        frag.trkBefore.visibility = View.VISIBLE
+                        frag.trkLeftSpace.visibility = View.GONE
+                        frag.trkRightSpace.visibility = View.GONE
+                    }
+                }
+            }
+            gifHandler.postDelayed(r, 500)
+        }
+
+
+    }
+
+
+    // Camera functions -------------------------------
     fun openCamera(saveAs: String) {
-        d(TAG, "openCamera ${ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)}")
+
         // Open the camera app
         fileName = saveAs
 
@@ -226,44 +238,89 @@ class TrackerFragment : Fragment() {
         }
     }
 
-    val activityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
-        { isGranted -> if(isGranted) openCamera("") }
-
     fun createPhotoFile(intent: Intent, filename: String) {
-        d(TAG, "craetePhotoFile")
         val file = File(vmMain.locPictures.value!!.absolutePath + "/" + filename)
         val uri = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID+".provider", file)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
     }
 
-    fun playGIF(from: LocalDate, to: LocalDate) {
 
-        // Cycle the after image through dates between from and to
+    // Image loading functions
+    private fun listImages() {
 
-        val start = ordered.indexOf(from)
-        val end = ordered.indexOf(to)
+        // Get an ordered list of files from the /images folder
+        ordered.clear()
+        vmMain.mapExtensions.value?.clear()
+        vmMain.mapPictures.value?.clear()
+        vmMain.load.value = 0
 
-        for(d in start..end) {
-            if(ordered[d] !in vmMain.mapPictures.value!!.keys) vmMain.fileImage(ordered[d])
+        val files = vmMain.locPictures.value?.listFiles() ?: return
+
+        files.forEach{
+            if(it.isFile && it.extension in listOf("jpg", "png")){
+                val date = try {
+                    LocalDate.parse(it.nameWithoutExtension.substring(0, 10), com.ymdFormatter)
+                } catch(e:Exception){
+                    null
+                }
+                if(date != null) {
+                    ordered.add(com.datePosition(date, ordered), date)
+                    vmMain.mapExtensions.value!![date] = it.extension
+                }
+            }
         }
-
-        frag.trkBeforeImage.setImageBitmap(vmMain.mapPictures.value!![from])
-        frag.trkBeforeDate.text = from.format(com.dmyFormatter)
-        frag.trkAfterImage.setImageBitmap(vmMain.mapPictures.value!![from])
-        frag.trkAfterDate.text = from.format(com.dmyFormatter)
-
-        val gifHandler = Handler()
-        for(i in start..end) {
-            gifHandler.postDelayed({
-                frag.trkAfterImage.setImageBitmap(vmMain.mapPictures.value!![ordered[i]])
-                frag.trkAfterDate.text = ordered[i].format(com.dmyFormatter)
-            }, i*(500L-i/10))
-        }
-
-
     }
 
-    fun getCalendar(){
+    private fun loadImages(dates: List<LocalDate>) : Task<Boolean>{
+        mProgressDialog = ProgressDialog(context)
+        mProgressDialog.setMessage("Loading images...")
+        mProgressDialog.isIndeterminate = false
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+        mProgressDialog.setCancelable(true)
+        mProgressDialog.max = dates.size
+        mProgressDialog.show()
+
+        val task = Tasks.call(mExecutor, {
+            try {
+                for((i, d) in dates.withIndex()) {
+                    mProgressDialog.max = dates.size
+                    mProgressDialog.progress = i
+                    vmMain.importImage(d)
+                }
+                mProgressDialog.dismiss()
+                true
+            } catch (e: java.lang.Exception) {
+                false
+            }
+        } )
+        return task
+    }
+
+
+
+
+    // Calendar functions -------------
+    private fun changeCalendar(period: String, prevnext: String) {
+
+        // Change the month shown in the Calendar table
+
+        val cal = LocalDate.parse("01 ${com.decap(frag.trkMonth.text.toString())} ${frag.trkYear.text}", com.dmonthyrFormatter)
+        val pm = (if(prevnext == "prev") -1 else 1).toLong()
+
+        if(cal.withDayOfMonth(1) > LocalDate.now()){
+            return
+        }
+
+        when(period){
+            "year"  ->  frag.trkYear.text = (cal.year + pm).toString()
+            "month" ->{ frag.trkMonth.text = cal.plusMonths(pm).month.name
+                frag.trkYear.text = cal.plusMonths(pm).year.toString() }
+        }
+
+        getCalendar()
+    }
+
+    private fun getCalendar(){
 
         val yr = frag.trkYear.text
         val mon = frag.trkMonth.text
@@ -292,9 +349,14 @@ class TrackerFragment : Fragment() {
 
     }
 
-    fun openImage(date: LocalDate) {
-        val dialogImage = ImageDialog(date)
-        dialogImage.setTargetFragment(this, IMAGE)
-        dialogImage.show(parentFragmentManager, "Image")
+    private fun openImage(date: LocalDate) {
+        val loadDates = mutableListOf<LocalDate>()
+        if(date !in vmMain.mapPictures.value!!.keys) loadDates.add(date)
+        loadImages(loadDates).addOnSuccessListener {
+            val dialogImage = ImageDialog(date)
+            dialogImage.setTargetFragment(this, IMAGE)
+            dialogImage.show(parentFragmentManager, "Image")
+        }
     }
+
 }

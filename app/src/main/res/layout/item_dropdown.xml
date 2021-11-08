@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/idrpLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/idrpIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_interval" />
+
+    <TextView
+        android:id="@+id/idrpText"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textColor="?attr/textPrimary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/idrpIcon" />
+</androidx.constraintlayout.widget.ConstraintLayout>

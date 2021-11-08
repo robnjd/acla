@@ -4,48 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginRight="8dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/trkTop"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/dr_roundedbox"
-        android:elevation="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/trkTitle"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_vertical"
-            android:text="Photo Tracker"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/trkScrollLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trkTop">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/trkScrollLinear"
@@ -54,364 +23,294 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/trkScrollInner"
+                android:id="@+id/trkBefterLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/dr_roundedbox_three"
+                android:elevation="8dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/trkBefterLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/dr_roundedbox"
-                    android:backgroundTint="@color/white"
-                    android:elevation="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                <LinearLayout
+                    android:id="@+id/trkPictureLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:animateLayoutChanges="true"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/trkDateButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/dr_pillbox_50"
-                        android:backgroundTint="@color/purple"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/trkPictureLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/trkPictureLayout">
-
-                        <ImageView
-                            android:id="@+id/trkDateIcon"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:tint="@color/white"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_calendar" />
-
-                        <TextView
-                            android:id="@+id/trkDateText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="16dp"
-                            android:gravity="center"
-                            android:text="Choose Dates"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/trkDateIcon"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/trkPlayButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/dr_pillbox_50"
-                        android:backgroundTint="@color/green"
-                        app:layout_constraintEnd_toEndOf="@+id/trkPictureLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/trkPictureLayout">
-
-                        <TextView
-                            android:id="@+id/trkPlayText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_marginStart="16dp"
-                            android:gravity="center"
-                            android:text="GIF"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/trkPlayIcon"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/trkPlayIcon"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="7dp"
-                            android:layout_marginEnd="5dp"
-                            android:paddingBottom="3dp"
-                            android:tint="@color/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_play" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <LinearLayout
-                        android:id="@+id/trkPictureLayout"
+                    <Space
+                        android:id="@+id/trkLeftSpace"
                         android:layout_width="0dp"
-                        android:layout_height="300dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/trkBefore"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:animateLayoutChanges="true">
 
                         <ImageView
                             android:id="@+id/trkBeforeImage"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@drawable/dr_leftroundedbox_grey"
-                            android:backgroundTint="@color/orange"
                             android:cropToPadding="true"
                             android:paddingLeft="5dp"
-                            android:paddingTop="10dp"
+                            android:paddingTop="5dp"
                             android:paddingRight="3dp"
                             android:paddingBottom="5dp"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/trkBeforeDate"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/dr_pillbox_60"
+                            android:backgroundTint="@color/whiteTrans"
+                            android:elevation="8dp"
+                            android:gravity="center"
+                            android:textColor="@color/textBlack"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/trkAfter"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:animateLayoutChanges="true">
 
                         <ImageView
                             android:id="@+id/trkAfterImage"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@drawable/dr_rightroundedbox_grey"
-                            android:backgroundTint="@color/orange"
                             android:cropToPadding="true"
                             android:paddingLeft="3dp"
-                            android:paddingTop="10dp"
+                            android:paddingTop="5dp"
                             android:paddingRight="5dp"
                             android:paddingBottom="5dp"
-                            android:scaleType="centerCrop" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/trkBeforeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:background="@drawable/dr_topleft_rbox"
-                        android:backgroundTint="@color/blue"
-                        android:elevation="8dp"
-                        android:gravity="center"
-                        android:paddingHorizontal="20dp"
-                        android:text="BEFORE"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/trkPictureLayout"
-                        app:layout_constraintTop_toTopOf="@+id/trkPictureLayout" />
-
-                    <TextView
-                        android:id="@+id/trkAfterText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:background="@drawable/dr_topright_rbox"
-                        android:backgroundTint="@color/blue"
-                        android:elevation="8dp"
-                        android:gravity="center"
-                        android:paddingHorizontal="20dp"
-                        android:text="AFTER"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/trkPictureLayout"
-                        app:layout_constraintTop_toTopOf="@+id/trkPictureLayout" />
-
-                    <LinearLayout
-                        android:id="@+id/trkDateLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:backgroundTint="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="@+id/trkPictureLayout"
-                        app:layout_constraintEnd_toEndOf="@+id/trkPictureLayout"
-                        app:layout_constraintStart_toStartOf="@+id/trkPictureLayout">
-
-                        <Space
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/trkBeforeDate"
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/dr_pillbox_50"
-                            android:backgroundTint="@color/whiteTrans"
-                            android:elevation="8dp"
-                            android:gravity="center"
-                            android:textColor="@color/textBlack"
-                            android:textStyle="bold" />
-
-                        <Space
-                            android:layout_width="46dp"
-                            android:layout_height="wrap_content" />
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/trkAfterDate"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="16dp"
                             android:layout_weight="1"
-                            android:background="@drawable/dr_pillbox_50"
+                            android:background="@drawable/dr_pillbox_60"
                             android:backgroundTint="@color/whiteTrans"
                             android:elevation="8dp"
                             android:gravity="center"
                             android:textColor="@color/textBlack"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/trkAfterImage"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <Space
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                    <Space
+                        android:id="@+id/trkRightSpace"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/trkPlayButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/dr_roundedbox_bottom"
+                android:backgroundTint="@color/orange"
+                android:elevation="8dp">
+
+                <TextView
+                    android:id="@+id/trkPlayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="GIF"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/trkPlayIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/trkPlayIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="5dp"
+                    android:padding="3dp"
+                    android:paddingBottom="3dp"
+                    android:tint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_play" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/trkImages"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/dr_roundedbox"
+                android:backgroundTint="@color/white"
+                android:elevation="8dp">
+
+                <ImageView
+                    android:id="@+id/trkPrevYear"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/dr_circle"
+                    android:backgroundTint="@color/textBlack"
+                    android:paddingLeft="7dp"
+                    android:tint="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_leftchevron" />
+
+                <TextView
+                    android:id="@+id/trkYear"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/dr_pillbox_60"
+                    android:backgroundTint="@color/textBlack"
+                    android:gravity="center"
+                    android:text="YEAR"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/trkNextYear"
+                    app:layout_constraintStart_toEndOf="@+id/trkPrevYear"
+                    app:layout_constraintTop_toTopOf="@+id/trkPrevYear" />
+
+                <ImageView
+                    android:id="@+id/trkNextYear"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/dr_circle"
+                    android:backgroundTint="@color/textBlack"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="3dp"
+                    android:tint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_rightchevron" />
+
+                <ImageView
+                    android:id="@+id/trkPrevMonth"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/dr_circle"
+                    android:backgroundTint="@color/textBlack"
+                    android:paddingLeft="7dp"
+                    android:tint="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/trkPrevYear"
+                    app:srcCompat="@drawable/ic_leftchevron" />
+
+                <TextView
+                    android:id="@+id/trkMonth"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/dr_pillbox_60"
+                    android:backgroundTint="@color/textBlack"
+                    android:gravity="center"
+                    android:text="MONTH"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/trkNextYear"
+                    app:layout_constraintStart_toEndOf="@+id/trkPrevYear"
+                    app:layout_constraintTop_toTopOf="@+id/trkPrevMonth" />
+
+                <ImageView
+                    android:id="@+id/trkNextMonth"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/dr_circle"
+                    android:backgroundTint="@color/textBlack"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="3dp"
+                    android:tint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/trkMonth"
+                    app:srcCompat="@drawable/ic_rightchevron" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/trkImages"
+                    android:id="@+id/trktableBackground"
                     android:layout_width="0dp"
-                    android:layout_height="300dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/dr_roundedbox"
-                    android:backgroundTint="@color/white"
-                    android:elevation="16dp"
+                    android:backgroundTint="@color/textBlack"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/trkBefterLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/trkMonth">
 
-                    <ImageView
-                        android:id="@+id/trkPrevYear"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/dr_circle"
-                        android:backgroundTint="@color/textBlack"
-                        android:paddingLeft="7dp"
-                        android:tint="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_leftchevron" />
-
-                    <TextView
-                        android:id="@+id/trkYear"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/dr_pillbox_50"
-                        android:backgroundTint="@color/textBlack"
-                        android:gravity="center"
-                        android:text="YEAR"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toStartOf="@+id/trkNextYear"
-                        app:layout_constraintStart_toEndOf="@+id/trkPrevYear"
-                        app:layout_constraintTop_toTopOf="@+id/trkPrevYear" />
-
-                    <ImageView
-                        android:id="@+id/trkNextYear"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/dr_circle"
-                        android:backgroundTint="@color/textBlack"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="3dp"
-                        android:tint="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_rightchevron" />
-
-                    <ImageView
-                        android:id="@+id/trkPrevMonth"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@drawable/dr_circle"
-                        android:backgroundTint="@color/textBlack"
-                        android:paddingLeft="7dp"
-                        android:tint="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/trkPrevYear"
-                        app:srcCompat="@drawable/ic_leftchevron" />
-
-                    <TextView
-                        android:id="@+id/trkMonth"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/dr_pillbox_50"
-                        android:backgroundTint="@color/textBlack"
-                        android:gravity="center"
-                        android:text="MONTH"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toStartOf="@+id/trkNextYear"
-                        app:layout_constraintStart_toEndOf="@+id/trkPrevYear"
-                        app:layout_constraintTop_toTopOf="@+id/trkPrevMonth" />
-
-                    <ImageView
-                        android:id="@+id/trkNextMonth"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/dr_circle"
-                        android:backgroundTint="@color/textBlack"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="3dp"
-                        android:tint="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/trkMonth"
-                        app:srcCompat="@drawable/ic_rightchevron" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/trktableBackground"
+                    <ListView
+                        android:id="@+id/trkImageTable"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/dr_roundedbox"
-                        android:backgroundTint="@color/textBlack"
+                        android:backgroundTint="@color/white"
+                        android:divider="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/trkMonth">
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <ListView
-                            android:id="@+id/trkImageTable"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/dr_roundedbox"
-                            android:backgroundTint="@color/white"
-                            android:divider="@color/white"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                        </ListView>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    </ListView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

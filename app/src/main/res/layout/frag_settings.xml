@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,15 +10,15 @@
         android:id="@+id/setImportLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/dr_roundedbox"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="?attr/base"
         android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/setPreferencesLayout">
 
         <TextView
             android:id="@+id/setImportTitle"
@@ -28,7 +29,7 @@
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Import Sessions"
             android:textColor="@color/orange"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,5 +47,380 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/setImportTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/setPreferencesLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/dr_roundedbox"
+        android:backgroundTint="?attr/base"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/setPrefTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Preferences"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/setWorkoutIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:padding="5dp"
+            android:tint="?attr/textPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setPrefTitle"
+            app:srcCompat="@drawable/ic_whistle" />
+
+        <TextView
+            android:id="@+id/setDefaultTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Default Workout"
+            android:textColor="?attr/textPrimary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/setWorkoutIcon"
+            app:layout_constraintTop_toBottomOf="@+id/setPrefTitle" />
+
+        <Spinner
+            android:id="@+id/setWorkout"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/base"
+            app:layout_constraintStart_toEndOf="@+id/setDefaultTitle"
+            app:layout_constraintTop_toTopOf="@+id/setDefaultTitle" />
+
+        <ImageView
+            android:id="@+id/setMeasureIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:padding="5dp"
+            android:tint="?attr/textPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setDefaultTitle"
+            app:srcCompat="@drawable/ic_measure" />
+
+        <TextView
+            android:id="@+id/setMeasuresTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="Default Measures:"
+            android:textColor="?attr/textPrimary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/setMeasureIcon"
+            app:layout_constraintTop_toTopOf="@+id/setMeasureIcon" />
+
+        <View
+            android:id="@+id/setDefaultDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/textPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setMeasuresTitle" />
+
+        <ImageView
+            android:id="@+id/setIntervalIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:tint="?attr/textSecondary"
+            app:layout_constraintStart_toStartOf="@+id/setMeasureIcon"
+            app:layout_constraintTop_toBottomOf="@+id/setMeasuresTitle"
+            app:srcCompat="@drawable/ic_interval" />
+
+        <TextView
+            android:id="@+id/sesIntervalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="Interval:"
+            android:textColor="?attr/textSecondary"
+            app:layout_constraintStart_toEndOf="@+id/setIntervalIcon"
+            app:layout_constraintTop_toTopOf="@+id/setIntervalIcon" />
+
+        <TextView
+            android:id="@+id/setIntervalColon"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:text=":"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/setIntervalMins"
+            app:layout_constraintTop_toTopOf="@+id/setIntervalSets" />
+
+        <EditText
+            android:id="@+id/setIntervalMins"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLighter"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@id/setIntervalSecs"
+            android:nextFocusForward="@id/setIntervalSecs"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            app:layout_constraintStart_toEndOf="@+id/setIntervalX"
+            app:layout_constraintTop_toTopOf="@+id/sesIntervalTitle" />
+
+        <EditText
+            android:id="@+id/setIntervalSets"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLighter"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@id/setIntervalMins"
+            android:nextFocusForward="@id/setIntervalMins"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            app:layout_constraintStart_toEndOf="@+id/sesIntervalTitle"
+            app:layout_constraintTop_toTopOf="@+id/sesIntervalTitle" />
+
+        <EditText
+            android:id="@+id/setIntervalSecs"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLighter"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@id/setRunDistance"
+            android:nextFocusForward="@id/setRunDistance"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            app:layout_constraintStart_toEndOf="@+id/setIntervalColon"
+            app:layout_constraintTop_toTopOf="@+id/setIntervalColon" />
+
+        <TextView
+            android:id="@+id/setIntervalX"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="X"
+            android:textColor="?attr/textPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/setIntervalSets"
+            app:layout_constraintTop_toTopOf="@+id/setIntervalSets" />
+
+        <ImageView
+            android:id="@+id/setRunIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="4dp"
+            android:tint="?attr/textSecondary"
+            app:layout_constraintStart_toStartOf="@+id/setMeasureIcon"
+            app:layout_constraintTop_toBottomOf="@+id/setIntervalIcon"
+            app:srcCompat="@drawable/ic_run" />
+
+        <TextView
+            android:id="@+id/sesRunTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="Run:"
+            android:textColor="?attr/textSecondary"
+            app:layout_constraintStart_toEndOf="@+id/setIntervalIcon"
+            app:layout_constraintTop_toTopOf="@+id/setRunIcon" />
+
+        <EditText
+            android:id="@+id/setRunDistance"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLighter"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@id/setRoutineReps"
+            android:nextFocusForward="@id/setRoutineReps"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            app:layout_constraintStart_toStartOf="@+id/setIntervalSets"
+            app:layout_constraintTop_toTopOf="@+id/sesRunTitle" />
+
+        <TextView
+            android:id="@+id/setRunKM"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="km"
+            android:textColor="?attr/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/setRunDistance"
+            app:layout_constraintTop_toTopOf="@+id/setRunDistance" />
+
+        <ImageView
+            android:id="@+id/setRoutineIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="4dp"
+            android:tint="?attr/textSecondary"
+            app:layout_constraintStart_toStartOf="@+id/setMeasureIcon"
+            app:layout_constraintTop_toBottomOf="@+id/setRunIcon"
+            app:srcCompat="@drawable/ic_rep" />
+
+        <TextView
+            android:id="@+id/sesRoutineTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="Routine:"
+            android:textColor="?attr/textSecondary"
+            app:layout_constraintStart_toEndOf="@+id/setIntervalIcon"
+            app:layout_constraintTop_toTopOf="@+id/setRoutineIcon" />
+
+        <EditText
+            android:id="@+id/setRoutineReps"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLighter"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@id/setRoutineSets"
+            android:nextFocusForward="@id/setRoutineSets"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            app:layout_constraintStart_toEndOf="@+id/sesRoutineTitle"
+            app:layout_constraintTop_toTopOf="@+id/sesRoutineTitle" />
+
+        <TextView
+            android:id="@+id/setRoutineRepsText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="reps"
+            android:textColor="?attr/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/setRoutineReps"
+            app:layout_constraintTop_toTopOf="@+id/setRoutineSets" />
+
+        <EditText
+            android:id="@+id/setRoutineSets"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLighter"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@id/setRoutineForms"
+            android:nextFocusForward="@id/setRoutineForms"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            app:layout_constraintStart_toEndOf="@+id/setRoutineRepsText"
+            app:layout_constraintTop_toTopOf="@+id/sesRoutineTitle" />
+
+        <TextView
+            android:id="@+id/setRoutineSetsText"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="sets"
+            android:textColor="?attr/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/setRoutineSets"
+            app:layout_constraintTop_toTopOf="@+id/setRoutineSets" />
+
+        <EditText
+            android:id="@+id/setRoutineForms"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/dr_roundedbox"
+            android:backgroundTint="@color/greyLighter"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@id/setIntervalSets"
+            android:nextFocusForward="@id/setIntervalSets"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            app:layout_constraintStart_toEndOf="@+id/setRoutineSetsText"
+            app:layout_constraintTop_toTopOf="@+id/setRoutineSetsText" />
+
+        <TextView
+            android:id="@+id/setRoutineFormsText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="forms"
+            android:textColor="?attr/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/setRoutineForms"
+            app:layout_constraintTop_toTopOf="@+id/setRoutineSets" />
+
+        <ImageView
+            android:id="@+id/setSave"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/dr_circle"
+            android:backgroundTint="@color/orange"
+            android:elevation="8dp"
+            android:padding="10dp"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setRoutineFormsText"
+            app:srcCompat="@drawable/ic_save" />
+
+        <ImageView
+            android:id="@+id/setDropdownIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="?attr/textSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/setWorkout"
+            app:layout_constraintEnd_toEndOf="@+id/setWorkout"
+            app:layout_constraintTop_toTopOf="@+id/setWorkout"
+            app:srcCompat="@drawable/ic_dropdown" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

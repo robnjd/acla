@@ -1,6 +1,7 @@
 package com.example.acla.backend
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.acla.R
 import com.example.acla.ui.dashboard.*
+import kotlinx.android.synthetic.main.item_aggregate.view.*
+import kotlinx.android.synthetic.main.item_dropdown.view.*
 import kotlinx.android.synthetic.main.item_import.view.*
 import kotlinx.android.synthetic.main.item_history.view.*
 import kotlinx.android.synthetic.main.item_page.view.*
@@ -45,6 +48,7 @@ class TableAdapter(private val context: Context,
 
         when (type) {
             "history"   -> HistoryRow(position, parent)
+            "dashboard" -> DashboardRow(position, parent)
             "legend"    -> LegendRow(position, parent)
             "calendar"  -> CalendarRow(position, parent)
             "images"    -> ImageRow(position, parent)
@@ -62,7 +66,7 @@ class TableAdapter(private val context: Context,
 
     private fun CalendarRow(position: Int, parent: ViewGroup) {
         rowView = inflater.inflate(R.layout.item_calendar, parent, false)
-        val rCalendar = getItem(position) as List<List<String>>
+        val rCalendar = getItem(position) as List<CalDate>
 
         for(d in 0..rCalendar.lastIndex){
 
@@ -72,13 +76,13 @@ class TableAdapter(private val context: Context,
             val vCircle = rowView.findViewById<ImageView>(viewId("tcCircle${d+1}"))
             val vHalf = rowView.findViewById<ImageView>(viewId("tcHalf${d+1}"))
 
-            vw.text = rCalendar[d][0]
+            vw.text = rCalendar[d].subdiv
 
-            val counts = mapOf("Interval" to rCalendar[d][1].toInt(), "Run" to rCalendar[d][2].toInt(), "Routine" to rCalendar[d][3].toInt())
+            val counts = mapOf("Interval" to rCalendar[d].interval, "Run" to rCalendar[d].run, "Routine" to rCalendar[d].routine)
 
             var nonzero = 0
             for (w in counts.keys){
-                if(counts[w]?:0 > 0) {
+                if(counts[w]?:0f >= 0.1) {
                     nonzero += 1
                 }
             }
@@ -93,12 +97,12 @@ class TableAdapter(private val context: Context,
                         vCircle.visibility = View.VISIBLE
                         vHalf.visibility = View.GONE
                         for(w in counts.keys){
-                            if(counts[w]?:0 > 0){
+                            if(counts[w]?:0f > 0.1){
                                 col = com.workoutIcon(w)["col"]!!
-                                if(counts[w]!! > 1) {
+                                if(counts[w]!! != 1f) {
                                     vBottom.visibility = View.VISIBLE
                                     vBottom.setTextColor(ContextCompat.getColor(context, col))
-                                    vBottom.text = counts[w].toString()
+                                    vBottom.text = com.numberFormat(counts[w]?:0f, 1)
                                 }
                                 break
                             } }
@@ -110,7 +114,7 @@ class TableAdapter(private val context: Context,
                         val circles = listOf(vCircle, vHalf)
                         var pos = 0
                         for(w in counts.keys){
-                            if(counts[w]?:0 > 0){
+                            if(counts[w]?:0f >= 0.1){
                                 val vTopBot = topbot[pos]
                                 val vSplit = circles[pos]
                                 val col = com.workoutIcon(w)["col"]!!
@@ -118,7 +122,7 @@ class TableAdapter(private val context: Context,
                                 vTopBot.visibility = View.VISIBLE
                                 vSplit.visibility = View.VISIBLE
 
-                                vTopBot.text = counts[w].toString()
+                                vTopBot.text = com.numberFormat(counts[w]?:0f,1)
                                 vTopBot.setTextColor(ContextCompat.getColor(context, col))
                          
                                 com.tint(vSplit, col, "bg")
@@ -137,6 +141,40 @@ class TableAdapter(private val context: Context,
 
             vw.visibility= View.GONE
             sp.visibility = View.GONE
+        }
+    }
+
+    private fun DashboardRow(position: Int, parent: ViewGroup) {
+        rowView = inflater.inflate(R.layout.item_aggregate, parent, false)
+        val iDash = getItem(position) as Map<String, String>
+
+        com.workoutIcon(iDash["workout"]!!, rowView.iaggWorkoutIcon)
+
+        for(att in listOf("Sessions", "Duration", "Measures")) {
+            val form = when(att){
+                "Sessions"  -> com.numberFormat(iDash["$att-current"]!!.toFloat(), 1)
+                "Duration"  -> com.timeFormat(iDash["$att-current"]!!.toFloat())
+                "Measures"   -> com.measureFormat(iDash["$att-current"]!!.toFloat(), iDash["workout"]!!)
+                else        -> ""
+            }
+            val delta = rowView.findViewById<TextView>(com.viewId("iagg${att}Delta"))
+            val img = rowView.findViewById<ImageView>(com.viewId("iagg${att}DeltaIcon"))
+            val icn = when(iDash["$att-direction"]) {
+                "+"     -> R.drawable.ic_trendingup
+                "-"     -> R.drawable.ic_trendingdown
+                else    -> R.drawable.ic_trendingflat
+            }
+            val col = when(iDash["$att-direction"]) {
+                "+"     -> R.color.green
+                "-"     -> R.color.red
+                else    -> R.color.greyLight
+            }
+
+            rowView.findViewById<TextView>(com.viewId("iagg${att}Value")).text = form
+            delta.text = com.percentFormat(iDash["$att-delta"]!!)
+            delta.setTextColor(ContextCompat.getColor(context, col))
+            img.setImageResource(icn)
+            com.tint(img, col, "fg")
         }
     }
 
@@ -160,7 +198,6 @@ class TableAdapter(private val context: Context,
         val startIndex = position*3
 
         for(i in 0..2) {
-
             if(startIndex+i >= getCount()){ break }
 
             val vColour = rowView.findViewById<ImageView>(viewId("tlColour$i"))
@@ -220,8 +257,8 @@ class PagerAdapter(activity: DashboardFragment, val cntItems: Int) : FragmentSta
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0       -> CalendarPager()
-            1       -> TablePager()
+            0       -> TablePager()
+            1       -> CalendarPager()
             2       -> GraphPager(position)
             3       -> TimePager()
             else    -> GraphPager(position)
@@ -266,4 +303,48 @@ class ListRecycler(val context: Context, var list: MutableList<*>,  val layout: 
             com.tint(row.ipgIcon, R.color.blank, "bg")
         }
     }
+}
+
+class IconDropdown(val context: Context, val list: List<Map<String, Any>>) : BaseAdapter() {
+
+    val TAG = "IncomeDropdown"
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val inflater = LayoutInflater.from(context)
+        val view = inflater.inflate(R.layout.item_dropdown, parent, false)
+
+        val iIncome = getItem(position)
+
+        view.idrpIcon.setImageResource(("${iIncome["icon"]}".toInt()))
+        tint(view.idrpIcon, "${iIncome["colour"]}".toInt(), "fg")
+        if("text" in iIncome.keys) view.idrpText.text = "${iIncome["text"]}" else view.idrpText.visibility = View.GONE
+
+        return view
+    }
+
+    override fun getItem(position: Int) : Map<String, Any> {
+        return list[position]
+    }
+
+    override fun getItemId(position: Int) : Long {
+        return position.toLong()
+    }
+
+    override fun getCount() : Int {
+        return list.size
+    }
+
+    fun <V : View> tint(view : V, colour : Int, foreback : String = "fg") {
+        val col = ContextCompat.getColor(context, colour)
+
+        when (foreback) {
+            "fg", "fore", "foreground" -> { view as ImageView
+                                            view.setColorFilter(col, PorterDuff.Mode.SRC_IN) }
+            "bg", "back", "background" ->   view.background.setColorFilter(col, PorterDuff.Mode.SRC_IN)
+        }
+    }
+
+
+
+
 }

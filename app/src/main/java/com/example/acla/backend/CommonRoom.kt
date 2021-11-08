@@ -4,32 +4,41 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.graphics.PorterDuff
+import android.os.Build
+import android.util.Log.d
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.example.acla.R
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
+import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.*
+import kotlin.math.floor
 
 class CommonRoom(val context: Context) {
-
+    val TAG = "CommonRoom"
     val dFormatter = DateTimeFormatter.ofPattern("d")
     val dmFormatter = DateTimeFormatter.ofPattern("d MMM")
     val dmyFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     val ymdFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val monFormatter = DateTimeFormatter.ofPattern("MMM")
+    val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
     val dmonFormatter = DateTimeFormatter.ofPattern("dd MMM")
     val dmonyFormatter = DateTimeFormatter.ofPattern("dd MMM YYYY")
     val monyFormatter = DateTimeFormatter.ofPattern("MMM YYYY")
     val monthyrFormatter = DateTimeFormatter.ofPattern("MMMM YYYY")
     val dmonthyrFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+    val hmsFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+    val daydmonyFormatter = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy")
 /*
     fun addData(oldValue: Float, entry: List<String>, aggregation: String) : Float {
 
@@ -378,6 +387,35 @@ class CommonRoom(val context: Context) {
         return total
     }
 
+    fun measureFormat(measure: Float, workout: String) : String {
+        return when(workout) {
+            "Interval"  -> "${numberFormat(measure/60)} X 1min"
+            "Run"       -> "${numberFormat(measure)} km"
+            "Routine"   -> "${numberFormat(measure)} reps"
+            else        -> ""
+        }
+    }
+
+    fun numberFormat(number: Any, decimals: Int = 1) : String {
+        val num = number.toString().split(".")
+        var whole = num[0]
+        val commas = whole.length/3 - 1
+
+        if(commas >= 1) {
+            for(c in 1..commas) {
+                val splitpoint = whole.length - (c*3 + c - 1)
+                whole = whole.substring(0, splitpoint) + "," + whole.substring(splitpoint, whole.length)
+            }
+        }
+
+        if(num.size > 1 && decimals > 0){
+            val dec = num[1].substring(0, decimals)
+            if(dec.toInt() != 0) whole += ".$dec"
+        }
+
+        return whole
+    }
+
     fun nullHint(edit: EditText) : String {
         val text = edit.text.toString()
         if(text == ""){
@@ -402,11 +440,33 @@ class CommonRoom(val context: Context) {
     }
 
     fun strPeriodBucket(d : LocalDate, type : String) : String? {
-        return if (type == "Weekdaily") {
-            d.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
-        } else {
-            periodBucket(d, type)?.format(dmyFormatter)
+        return when(type) {
+                "Daily"     -> d.dayOfMonth.toString()
+                "Weekdaily" -> d.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                "Weekly"    -> "${d.dayOfMonth / 7 + 1}"
+                "Monthly"   -> periodBucket(d, type)!!.month.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                "Monthdaily" -> strPeriodBucket(d, "Weekdaily") + strPeriodBucket(d, "Weekly")
+                "Yearly"    -> periodBucket(d, type)!!.year.toString()
+                else        -> d.format(dmyFormatter)
+            }
+    }
+
+    fun percentFormat(number: String, decimals: Int=0) : String {
+        when(number){
+            "Infinity"  -> return "\u221E"
+            "NaN"       -> return "∞"
         }
+        val num = number.toFloat()*100
+        val sp = num.toString().split(".")
+        var out = sp[0]
+        if(decimals != 0) {
+            out += if(decimals > sp[1].length) {
+                sp[1]
+            } else {
+                sp[1].substring(0, decimals)
+            }
+        }
+        return "$out%"
     }
 
     fun periodSubdiv(startDate : LocalDate, period : String) : MutableList<LocalDate> {
@@ -415,21 +475,26 @@ class CommonRoom(val context: Context) {
 
         val lstDates = mutableListOf<LocalDate>()
 
-        var addDate = startDate
-        val endDate = when(period) {
-            "Weekly"    -> startDate.plusWeeks(1L)
-            "Monthly"   -> startDate.plusMonths(1L)
-            "Yearly"    -> startDate.plusYears(1L)
+        var addDate = when(period) {
+            "Weekly"    -> startDate.minusDays(startDate.dayOfWeek.value.toLong() - 1)
+            "Monthly"   -> startDate.withDayOfMonth(1)
+            "Yearly"    -> startDate.withDayOfYear(1)
             else        -> startDate
+        }
+        val endDate = when(period) {
+            "Weekly"    -> addDate.plusWeeks(1L)
+            "Monthly"   -> addDate.plusMonths(1L)
+            "Yearly"    -> addDate.plusYears(1L)
+            else        -> addDate
         }
 
         while(addDate < endDate){
             lstDates.add(addDate)
             addDate = when(period){
-                "Weekly"  -> { addDate.plusDays(1L) }
-                "Monthly" -> { addDate.plusDays(1L) }
-                "Yearly"  -> { addDate.plusMonths(1L) }
-                else    -> { addDate.plusDays(1L) }
+                "Weekly"    -> addDate.plusDays(1L)
+                "Monthly"   -> addDate.plusDays(1L)
+                "Yearly"    -> addDate.plusMonths(1L)
+                else        -> addDate.plusDays(1L)
             }
         }
         return lstDates
@@ -455,20 +520,16 @@ class CommonRoom(val context: Context) {
     }
  */
 
-    fun showCalendar(DateView : TextView) {
+    fun showCalendar(DateView : TextView, format: DateTimeFormatter=dmyFormatter) {
 
         val dateString = DateView.text.toString()
-        val openDate = LocalDate.parse(dateString, dmyFormatter)
+        val openDate = LocalDate.parse(dateString, format)
 
-        val dpd = DatePickerDialog(
-            context,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                DateView.text = "${lead(dayOfMonth)}/${lead(monthOfYear + 1)}/$year"
-            },
-            openDate.year,
-            openDate.month.value - 1,
-            openDate.dayOfMonth
-        )
+        val dpd = DatePickerDialog(context,
+            { _, year, monthOfYear, dayOfMonth ->
+                var newDate = LocalDate.now().withDayOfMonth(dayOfMonth).withMonth(monthOfYear+1).withYear(year)
+                DateView.text = newDate.format(format) },
+            openDate.year, openDate.month.value - 1, openDate.dayOfMonth)
 
         dpd.show()
     }
@@ -479,12 +540,25 @@ class CommonRoom(val context: Context) {
         val hr = if(spTime[0] == "") 0 else spTime[0].toInt()
         val min = if(spTime.size < 2 || spTime[1] == "") 0 else spTime[1].toInt()
 
-        val clock = TimePickerDialog(context, object : TimePickerDialog.OnTimeSetListener {
-            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                timeView.text = String.format("%d:%d", hourOfDay, minute) + ":00"
-            }
-        }, hr, min, true)
+        val clock = TimePickerDialog(context,
+            { _, hourOfDay, minute -> timeView.text = "$hourOfDay".padStart(2,'0')+":"+"$minute".padStart(2,'0')+":00" },
+            hr, min, true)
         clock.show()
+    }
+
+    fun spanDates(start: LocalDate, end: LocalDate, period: String) : List<LocalDate> {
+        val dates = mutableListOf<LocalDate>()
+        var next = start
+        while(next <= end) {
+            dates.add(next)
+            next = when(period) {
+                "Weekly"    -> next.plusDays(7)
+                "Monthly"   -> next.plusMonths(1)
+                "Yearly"    -> next.plusYears(1)
+                else        -> next.plusDays(1)
+            }
+        }
+        return dates
     }
 
 
@@ -589,10 +663,9 @@ class CommonRoom(val context: Context) {
     }
 
     fun timeFormat(seconds: Float) : String {
-
-        val calcH = Math.floor((seconds / 3600).toDouble())
-        val calcM = Math.floor((seconds - calcH * 3600) / 60)
-        val calcS = seconds - calcH*3600 - calcM*60
+        val calcH = (seconds / 3600).toInt()
+        val calcM = ((seconds - (calcH*3600)) / 60).toInt()
+        val calcS = (seconds - (calcH*3600) - (calcM*60)).toInt()
 
         val H = calcH.toString().split(".")[0].padStart(2, '0')
         val M = calcM.toString().split(".")[0].padStart(2, '0')
@@ -609,6 +682,13 @@ class CommonRoom(val context: Context) {
     fun <T> toLong(num: T) : Long {
         if(num == null || num.toString() == ""){ return 0L }
         return num.toString().replace(",", "").toLong()
+    }
+
+    fun themeColour(attrId: Int) : Int {
+        val typedArray = context.theme.obtainStyledAttributes( intArrayOf(attrId) )
+        val textColor = typedArray.getColor(0, 0)
+        typedArray.recycle()
+        return textColor
     }
 
     fun viewId(viewName: String) : Int {

@@ -2,10 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Acla" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
-        <item name="base">@color/black</item>
+        <item name="base">@color/backBlack</item>
         <item name="header">@color/orangeDark</item>
         <item name="textPrimary">@color/white</item>
         <item name="textSecondary">@color/greyLight</item>
+
+        <item name="android:outlineAmbientShadowColor">@color/white</item>
+        <item name="android:outlineSpotShadowColor">@color/white</item>
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/orange</item>

@@ -1,95 +1,125 @@
 package com.example.acla.ui.dashboard
 
 import android.os.Bundle
-import android.util.Log
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
-import com.example.acla.DashViewModel
-import com.example.acla.MainViewModel
 import com.example.acla.R
 import com.example.acla.backend.*
 import kotlinx.android.synthetic.main.frag_calendar.view.*
-import kotlinx.android.synthetic.main.frag_graph.view.*
 import java.time.LocalDate
 
 class CalendarPager() : Fragment() {
-
+    val TAG = "CalendarPager"
     lateinit var frag: View
-    lateinit var cht: ChartHelper
     lateinit var com: CommonRoom
-    val vmDash: DashViewModel by viewModels({requireParentFragment()})
+    lateinit var db: DatabaseHelper
+    val vmDash: DashViewModel by viewModels(ownerProducer={requireParentFragment()})
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        vmDash.stats.observe(viewLifecycleOwner, Observer {
-            stats ->
-                frag.calMonthTable.adapter = fillCalendar("Monthly")
-                frag.calYearTable.adapter = fillCalendar("Yearly")
-        } )
-
+        vmDash.startDate.observe(viewLifecycleOwner){ start -> newDate(start) }
         return inflater.inflate(R.layout.frag_calendar, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frag = view
-        cht = ChartHelper(requireContext())
         com = CommonRoom(requireContext())
-
-        frag.calMonthTable.adapter = fillCalendar("Monthly")
-        frag.calYearTable.adapter = fillCalendar("Yearly")
+        db = DatabaseHelper(requireContext())
     }
 
-    fun fillCalendar(period: String) : TableAdapter {
+    fun newDate(start: LocalDate) {
+        val period = vmDash.period.value!!
 
-        val searchFilter = vmDash.searchFilter.value
+        frag.calWeekTitle.text = if(period=="Weekly") "Week of ${start.format(com.dmonFormatter)}" else "Cumulative Week"
+        frag.calMonthTitle.text = if(period=="Yearly") "Cumulative Month" else start.format(com.monthyrFormatter)
+        frag.calYearTitle.text = start.year.toString()
 
-        val lstDates = com.periodSubdiv(searchFilter!!.startDate, searchFilter!!.period)
+        frag.calMonthHeader.visibility = if(period == "Yearly") View.GONE else View.VISIBLE
 
-        if(period == "Monthly"){
-            val startDay =lstDates[0].dayOfWeek.value
+        frag.calWeekTable.adapter = fillCalendar(start, "Weekly", period)
+        frag.calMonthTable.adapter = fillCalendar(start, "Monthly", period)
+        frag.calYearTable.adapter = fillCalendar(start, "Yearly", period)
+    }
+
+    fun generateQuery(searchDate: LocalDate, table: String, period: String) : String {
+        val start = when(table) {
+            "Weekly"    -> when(period) {
+                "Weekly"    -> searchDate.minusDays(searchDate.dayOfWeek.value - 1L)
+                "Monthly"   -> searchDate.withDayOfMonth(1)
+                else        -> searchDate.withDayOfYear(1)
+            }
+            "Monthly"   -> when(period) {
+                "Yearly"    -> searchDate.withDayOfYear(1)
+                else        -> searchDate.withDayOfMonth(1)
+            }
+            else        -> searchDate.withDayOfYear(1)  }
+        val end = when(table) {
+            "Weekly"    -> when(period) {
+                "Weekly"    -> start.plusDays(7)
+                "Monthly"   -> start.withDayOfMonth(start.lengthOfMonth())
+                else        -> start.withDayOfYear(start.lengthOfYear())
+            }
+            "Monthly"   -> when(period) {
+                "Yearly"    -> searchDate.withDayOfYear(start.lengthOfYear())
+                else        -> searchDate.withDayOfMonth(start.lengthOfMonth())
+            }
+            else        -> searchDate.withDayOfYear(start.lengthOfYear())  }
+
+        d(TAG, "$table, $period : $start -> $end")
+
+        return "date BETWEEN '${start.format(com.ymdFormatter)}' AND '${end.format(com.ymdFormatter)}'"
+    }
+
+    fun fillCalendar(searchDate: LocalDate, table: String, period: String) : TableAdapter {
+
+        val mapDates = mutableMapOf<String, CalDate>()
+        val lstCalendar = mutableListOf<MutableList<CalDate>>()
+        val start = when(table) {
+                        "Weekly"    -> searchDate.minusDays(searchDate.dayOfWeek.value - 1L)
+                        "Monthly"   -> searchDate.withDayOfMonth(1)
+                        else        -> searchDate.withDayOfYear(1)  }
+
+        val subPeriod = when(table) {
+                        "Weekly"    -> "Weekdaily"
+                        "Monthly"   -> "Daily"
+                        else        -> "Monthly" }
+
+        val rowLength = if(table == "Yearly") 5 else 6
+        val lstSessions = db.readSessions(generateQuery(searchDate, table, period))
+        val lstDates = com.periodSubdiv(start, table)
+
+        if(table == "Monthly" && period != "Yearly") {
+            val startDay = lstDates[0].dayOfWeek.value
             for(d in 1 until startDay) {
                 lstDates.add(0, LocalDate.parse("2000-01-01", com.ymdFormatter))
             }
         }
 
-        val mapDates = mutableMapOf<LocalDate, MutableMap<String, Int>>()
         lstDates.forEach {
-            mapDates[it] = mutableMapOf("Interval" to 0, "Run" to 0, "Routine" to 0)
+            mapDates[com.strPeriodBucket(it, subPeriod)!!] = CalDate(it, subPeriod)
         }
 
-        val subPeriod = if(searchFilter.period == "Yearly") "Monthly" else "Daily"
-
-        for(sesh in vmDash.lstSessions.value!!){
-            val sub = com.periodBucket(sesh.date, subPeriod)
-            if(sub in lstDates) {
-                mapDates[sub]!![sesh.workout] = (mapDates[sub]!![sesh.workout]?:0) + 1
+        for(sesh in lstSessions) {
+            val sub = com.strPeriodBucket(sesh.date, subPeriod)
+            if(sub in mapDates.keys) {
+                mapDates[sub]!!.addSession(sesh)
             }
         }
 
-        val lstCalendar = mutableListOf<MutableList<List<String>>>()
-        val rowLength = if(searchFilter.period == "Yearly") 5 else 6
         var d = 0
-        while(d < lstDates.size) {
-            var lstRow = mutableListOf<List<String>>()
+        while(d < mapDates.keys.size) {
+            val lstRow = mutableListOf<CalDate>()
             for(c in 0..rowLength) {
                 if(d > lstDates.lastIndex || lstDates[d] == LocalDate.parse("2000-01-01", com.ymdFormatter)){
-                    lstRow.add( listOf("", "0", "0", "0") )
+                    lstRow.add( CalDate() )
                 } else {
-                    val row = mutableListOf<String>()
-                    row.add(com.formatSubdiv(lstDates[d], searchFilter.period))
-                    row.add(mapDates[lstDates[d]]!!["Interval"].toString())
-                    row.add(mapDates[lstDates[d]]!!["Run"].toString())
-                    row.add(mapDates[lstDates[d]]!!["Routine"].toString())
-                    lstRow.add( row )
+                    val date = com.strPeriodBucket(lstDates[d], subPeriod)
+                    lstRow.add(mapDates[date]!!)
                 }
                 d += 1
             }
@@ -97,7 +127,6 @@ class CalendarPager() : Fragment() {
         }
 
         return TableAdapter(requireContext(), lstCalendar, "calendar")
-
     }
 
 

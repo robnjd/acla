@@ -1,6 +1,7 @@
 package com.example.acla.backend
 
 import android.os.Build
+import android.util.Log.d
 import androidx.annotation.RequiresApi
 import java.time.Duration
 import java.time.LocalDate
@@ -9,9 +10,10 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalUnit
 import java.util.concurrent.TimeUnit
 import javax.xml.datatype.DatatypeConstants.SECONDS
+import kotlin.math.pow
 
 class Session(val load: MutableMap<String, String>?=null) {
-
+    val TAG = "Session"
     var id: Int? = null
     lateinit var date: LocalDate
     lateinit var workout: String
@@ -32,7 +34,7 @@ class Session(val load: MutableMap<String, String>?=null) {
 
     init {
         if(!load.isNullOrEmpty()) {
-            id = load["index"]?.toInt()
+            id = load["id"]?.toInt()
             date = LocalDate.parse(load["date"], ymd)
             workout = load["workout"] ?: ""
             start = LocalTime.parse(load["start"], hms)
@@ -45,7 +47,8 @@ class Session(val load: MutableMap<String, String>?=null) {
 
             when(workout) {
                 "Interval"  ->{ sets = spMeasure[0].toInt()
-                                intervals = spMeasure[1].toInt() }
+                                val spMin = spMeasure[1].split(":")
+                                intervals = spMin[0].toInt()*60 + spMin[1].toInt() }
 
                 "Run"       -> distance = measure.toFloat()
 
@@ -93,11 +96,11 @@ class Session(val load: MutableMap<String, String>?=null) {
 
     fun secondize() : Int {
         val sp = duration.split(":")
-        var sec = 0
+        var sec = 0f
         for((i, s) in sp.withIndex()) {
-            sec += s.toInt()*(i - 2)*60
+            sec += s.toInt()*(60f.pow(2-i))
         }
-        return sec
+        return sec.toInt()
     }
 
     fun timeFormat(seconds: Float) : String {
@@ -113,7 +116,6 @@ class Session(val load: MutableMap<String, String>?=null) {
         return "$H:$M:$S"
     }
 
-
 }
 
 
@@ -122,8 +124,44 @@ class Agg(val workout: String) {
     var duration = 0
     var measure = 0f
 
-    fun addSession(sesh: Session) {
+    fun addSession(sesh: Session) : Agg {
+        count += 1
         duration += sesh.seconds
         if(workout != "All") measure += sesh.metricCount()
+        return this
     }
+
+    override fun toString(): String {
+        return mapOf("workout" to workout, "count" to count, "duration" to duration, "measure" to measure).toString()
+    }
+}
+
+class CalDate(val date: LocalDate?=null, val period: String?=null) {
+
+    var subdiv = when(period?:"blank") {
+        "Weekdaily"     -> date?.format(DateTimeFormatter.ofPattern("EEE"))
+        "Daily"         -> date?.format(DateTimeFormatter.ofPattern("d"))
+        "Monthdaily"    -> date?.format(DateTimeFormatter.ofPattern("EEE")) + "${date!!.dayOfMonth/7 + 1}"
+        "Monthly"       -> date?.format(DateTimeFormatter.ofPattern("MMM"))
+        else            -> ""
+    }
+    var interval = 0f
+    var run = 0f
+    var routine = 0f
+
+    fun addSession(sesh: Session) {
+        when(sesh.workout) {
+            "Interval"  -> interval += 1
+            "Run"       -> run += 1
+            "Routine"   -> routine += 1
+        }
+    }
+
+    fun average(div: Int) : CalDate {
+        interval /= div
+        run /= div
+        routine /= div
+        return this
+    }
+
 }

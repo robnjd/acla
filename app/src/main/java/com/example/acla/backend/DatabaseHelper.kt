@@ -11,8 +11,9 @@ import androidx.annotation.RequiresApi
 
 class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context, "aclaDB", null, 1) {
     val TAG = "DatabaseHelper"
-    val mapColumns = mapOf("sessions" to listOf("id", "date", "workout", "start", "finish", "duration", "measure"))
-    val dataTypes = mapOf("id" to "INT PRIMARY KEY")
+    val mapColumns = mapOf( "sessions"      to listOf("id", "date", "workout", "start", "finish", "duration", "measure"),
+                            "preferences"   to listOf("pref", "value"))
+    val dataTypes = mapOf("id" to "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL", "pref" to "TEXT PRIMARY KEY")
 
     override fun onCreate(db: SQLiteDatabase?) {
         for(table in mapColumns.keys) {
@@ -38,12 +39,13 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context, "aclaDB",
         val database = this.writableDatabase
         val contentValues = ContentValues()
         val mapData = when (table) {
-            "sessions"   -> (data as Session).toMap()
-            else        -> mutableMapOf()
+            "sessions"      -> (data as Session).toMap()
+            "preferences"   -> data as MutableMap<String, String>
+            else            -> mutableMapOf()
         }
         d(TAG, "Insert: $mapData")
         for (field in mapColumns[table]!!) {
-            contentValues.put(field, mapData[field]?:"")
+            contentValues.put(field, if(field=="id") null else mapData[field]?:"")
         }
 
         val result = database.insert(table, null, contentValues)
@@ -52,12 +54,13 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context, "aclaDB",
         }
     }
 
-    fun readSessions(where: String?=null) : MutableList<Session> {
+    fun readSessions(where: String?=null, order: String?="date DESC") : MutableList<Session> {
         val lstSessions = mutableListOf<Session>()
         val db = this.readableDatabase
 
         val clause = if (where == null) "" else "WHERE $where"
-        val query = "SELECT * FROM sessions $clause"
+        val sort = if(order == null) "" else "ORDER BY $order"
+        val query = "SELECT * FROM sessions $clause $sort"
         val result = try {
             db.rawQuery(query, null)
         } catch (e: Exception) {
@@ -82,22 +85,64 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context, "aclaDB",
         return lstSessions
     }
 
+    fun readPrefs(where: String?=null) : MutableMap<String, String> {
+        val mapPrefs = mutableMapOf<String, String>()
+        val db = this.readableDatabase
+
+        val clause = if (where == null) "" else "WHERE $where"
+        val query = "SELECT * FROM preferences $clause"
+        val result = try {
+            db.rawQuery(query, null)
+        } catch (e: Exception) {
+            createTable("preferences", db)
+            db.rawQuery(query, null)
+        }
+
+        if (result.moveToFirst()) {
+            do {
+                mapPrefs[result.getString(0)] = result.getString(1)
+            } while (result.moveToNext())
+        }
+
+        return mapPrefs
+    }
+
+    fun updatePrefs(mapPrefs: MutableMap<String, String>) {
+        val db = this.writableDatabase
+        d(TAG, "update prefs: $mapPrefs")
+
+        for((pref, default) in mapPrefs) {
+            val query = "UPDATE preferences SET value = '$default' WHERE pref = '$pref'"
+            d(TAG, query)
+            val result = db.rawQuery(query, null)
+            if(!result.moveToFirst()) {
+                val contentValues = ContentValues()
+                contentValues.put("pref", pref)
+                contentValues.put("value", default)
+                db.insert("preferences", null, contentValues)
+            } else {
+                result.moveToFirst()
+                d(TAG, result.toString())
+            }
+        }
+    }
+
     fun updateSesion(original: Session, new: Session) : Boolean {
         val db = this.writableDatabase
         val mapOri = original.toMap()
         val mapNew = new.toMap()
 
-        var set = "SET "
+        var set = ""
         for(k in mapOri.keys) {
-            if(k == "index") continue
+            if(k == "id") continue
             if(mapOri[k] != mapNew[k]) {
                 set += "$k = '${mapNew[k]}', "
             }
         }
-        if(set == "SET ") return false
+        if(set == "") return false
         set = set.substring(0, set.lastIndex-1)
 
-        val query = "UPDATE sessions SET $set WHERE index = ${original.id}"
+        val query = "UPDATE sessions SET $set WHERE id = ${original.id}"
 
         val result = db.rawQuery(query, null)
         return result.moveToFirst()
@@ -105,7 +150,7 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context, "aclaDB",
 
     fun deleteSession(sesh: Session) : Boolean {
         val db = this.writableDatabase
-        val query = "DELETE sessions WHERE index = ${sesh.id}"
+        val query = "DELETE FROM sessions WHERE id = ${sesh.id}"
         val result = db.rawQuery(query, null)
         return result.moveToFirst()
     }

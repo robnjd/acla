@@ -1,33 +1,25 @@
 package com.example.acla.ui.history
 
-import android.app.Activity
-import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log.d
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
-import com.example.acla.MainViewModel
 import com.example.acla.R
 import com.example.acla.backend.CommonRoom
 import com.example.acla.backend.DatabaseHelper
 import com.example.acla.backend.Session
-import com.example.acla.backend.TableAdapter
-import kotlinx.android.synthetic.main.frag_befter.view.*
 import kotlinx.android.synthetic.main.frag_entry.view.*
-import kotlinx.android.synthetic.main.frag_tracker.view.*
-import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 
 class EntryDialog(val sesh: Session?=null) : DialogFragment() {
 
-    val TAG = "EntyDialog"
+    val TAG = "EntryDialog"
 
     lateinit var com: CommonRoom
     lateinit var frag: View
@@ -52,9 +44,9 @@ class EntryDialog(val sesh: Session?=null) : DialogFragment() {
 
         val calcDuration = object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val start = frag.dhStart.text.toString()
-                val finish = frag.dhFinish.text.toString()
-                frag.dhDuration.text = com.timeFormat(com.timeCalc(start, finish, "difference"))
+                val start = frag.entStart.text.toString()
+                val finish = frag.entFinish.text.toString()
+                frag.entDuration.text = com.timeFormat(com.timeCalc(start, finish, "difference"))
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
@@ -64,71 +56,74 @@ class EntryDialog(val sesh: Session?=null) : DialogFragment() {
 
         if(sesh != null) {
             workout = sesh.workout
-            frag.dhDate.text = sesh.date.format(com.dmyFormatter)
-            frag.dhStart.text = sesh.start.format(sesh.hms)
-            frag.dhFinish.text = sesh.finish.format(sesh.hms)
-            frag.dhDuration.text = sesh.duration
+            frag.entDate.text = sesh.date.format(com.daydmonyFormatter)
+            frag.entStart.text = sesh.start.format(sesh.hms)
+            frag.entFinish.text = sesh.finish.format(sesh.hms)
+            frag.entDuration.text = sesh.duration
 
             when (sesh.workout) {
                 "Interval"  ->{ val interval = sesh.measure.split(" X ")
-                                frag.dhCount.setText(interval[0])
+                                frag.entCount.setText(interval[0])
                                 if (interval.size > 1) {
                                     val time = interval[1].split(":")
-                                    frag.dhMins.setText(time[0])
+                                    frag.entMins.setText(time[0])
                                     if (time.size > 1) {
-                                        frag.dhSecs.setText(time[1])
+                                        frag.entSecs.setText(time[1])
                                     }
                                 } }
-                "Run"       -> frag.dhDistance.setText(sesh.measure)
+                "Run"       -> frag.entDistance.setText(sesh.measure)
                 "Routine"   ->{ val repset = sesh.measure.split(" X ")
-                                frag.dhReps.setText(repset[0])
-                                frag.dhSets.setText(repset[1])
-                                frag.dhVars.setText(if(repset.lastIndex >= 2) repset[2] else "1" )}
+                                frag.entReps.setText(repset[0])
+                                frag.entSets.setText(repset[1])
+                                frag.entVars.setText(if(repset.lastIndex >= 2) repset[2] else "1" )}
             }
         } else {
-            frag.dhDate.text = LocalDate.now().format(com.dmyFormatter)
+            frag.entDate.text = LocalDate.now().format(com.daydmonyFormatter)
         }
 
         changeWorkout(workout, false)
 
-        frag.dhIcon.setOnClickListener {
+        frag.entIcon.setOnClickListener {
             workout = changeWorkout(workout)
         }
 
-        frag.dhDate.setOnClickListener { com.showCalendar(it as TextView) }
+        frag.entDate.setOnClickListener { com.showCalendar(it as TextView, com.daydmonyFormatter) }
 
-        frag.dhStart.setOnClickListener {
-            com.showClock(frag.dhStart)
+        frag.entStart.setOnClickListener {
+            com.showClock(frag.entStart)
         }
 
-        frag.dhFinish.setOnClickListener {
-             com.showClock(frag.dhFinish)
+        frag.entFinish.setOnClickListener {
+             com.showClock(frag.entFinish)
         }
 
-        frag.dhStart.addTextChangedListener(calcDuration)
+        frag.entStart.addTextChangedListener(calcDuration)
 
-        frag.dhFinish.addTextChangedListener(calcDuration)
+        frag.entFinish.addTextChangedListener(calcDuration)
 
-        frag.dhSave.setOnClickListener {
+        frag.entSave.setOnClickListener {
             val newSession = Session()
-            newSession.date = LocalDate.parse(frag.dhDate.text.toString(), com.dmyFormatter)
-            newSession.start = LocalTime.parse(frag.dhStart.text.toString(), newSession.hms)
-            newSession.finish = LocalTime.parse(frag.dhFinish.text.toString(), newSession.hms)
-            newSession.duration = frag.dhDuration.text.toString()
+            newSession.workout = workout
+            newSession.date = LocalDate.parse(frag.entDate.text.toString(), com.daydmonyFormatter)
+            newSession.start = LocalTime.parse(frag.entStart.text.toString(), newSession.hms)
+            newSession.finish = LocalTime.parse(frag.entFinish.text.toString(), newSession.hms)
+            newSession.duration = frag.entDuration.text.toString()
             newSession.measure = when(workout) {
-                "Interval"  -> "${com.nullHint(frag.dhCount)} X ${com.nullHint(frag.dhMins)}:${com.nullHint(frag.dhSecs).padStart(2,'0')}"
-                "Run"       -> com.nullHint(frag.dhDistance)
-                "Routine"   -> "${com.nullHint(frag.dhReps)} X ${com.nullHint(frag.dhSets)} X ${com.nullHint(frag.dhVars)}"
+                "Interval"  -> "${com.nullHint(frag.entCount)} X ${com.nullHint(frag.entMins)}:${com.nullHint(frag.entSecs).padStart(2,'0')}"
+                "Run"       -> com.nullHint(frag.entDistance)
+                "Routine"   -> "${com.nullHint(frag.entReps)} X ${com.nullHint(frag.entSets)} X ${com.nullHint(frag.entVars)}"
                 else        -> ""
             }
+            d(TAG, newSession.toString())
 
             if(sesh == null) {
-                db.insertData("session", newSession)
+                db.insertData("sessions", newSession)
             } else {
                 db.updateSesion(sesh, newSession)
             }
             Toast.makeText(requireContext(), "Session Saved.", Toast.LENGTH_LONG).show()
             targetFragment?.onActivityResult(targetRequestCode, AppCompatActivity.RESULT_OK, null)
+            dialog?.dismiss()
         }
         
     }
@@ -136,18 +131,18 @@ class EntryDialog(val sesh: Session?=null) : DialogFragment() {
     private fun changeWorkout(workout: String, flip: Boolean = true) : String {
 
         val newWorkout = if(flip) com.switch(workout, listOf("Interval", "Run", "Routine")) else workout
-        com.workoutIcon(newWorkout, frag.dhIcon)
+        com.workoutIcon(newWorkout, frag.entIcon)
 
         when(newWorkout) {
-            "Interval"  ->{ frag.dhIntervalLayout.visibility = View.VISIBLE
-                            frag.dhRunLayout.visibility = View.GONE
-                            frag.dhRoutineLayout.visibility = View.GONE }
-            "Run"       ->{ frag.dhIntervalLayout.visibility = View.GONE
-                            frag.dhRunLayout.visibility = View.VISIBLE
-                            frag.dhRoutineLayout.visibility = View.GONE }
-            "Routine"   ->{ frag.dhIntervalLayout.visibility = View.GONE
-                            frag.dhRunLayout.visibility = View.GONE
-                            frag.dhRoutineLayout.visibility = View.VISIBLE }
+            "Interval"  ->{ frag.entIntervalLayout.visibility = View.VISIBLE
+                            frag.entRunLayout.visibility = View.GONE
+                            frag.entRoutineLayout.visibility = View.GONE }
+            "Run"       ->{ frag.entIntervalLayout.visibility = View.GONE
+                            frag.entRunLayout.visibility = View.VISIBLE
+                            frag.entRoutineLayout.visibility = View.GONE }
+            "Routine"   ->{ frag.entIntervalLayout.visibility = View.GONE
+                            frag.entRunLayout.visibility = View.GONE
+                            frag.entRoutineLayout.visibility = View.VISIBLE }
         }
         return newWorkout
     }

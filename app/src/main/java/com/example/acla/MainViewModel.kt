@@ -18,25 +18,25 @@ class MainViewModel: ViewModel() {
     val mapPictures = MutableLiveData<MutableMap<LocalDate, Bitmap>>()
     val mapExtensions = MutableLiveData<MutableMap<LocalDate, String>>()
     val locPictures = MutableLiveData<File>()
-
-
+    val load = MutableLiveData<Int>()
 
     init {
         fabFunction.value = "start"
         mapPictures.value = mutableMapOf()
         mapExtensions.value = mutableMapOf()
         locPictures.value = File("")
+        load.value = 0
     }
 
-    fun fileImage(date: LocalDate) {
+
+    fun importImage(date: LocalDate) {
         val path = locPictures.value!!.absolutePath + "/$date.${mapExtensions.value!![date]}"
-        val img = BitmapFactory.decodeStream(File(path).inputStream())
+        val img = BitmapFactory.decodeStream(File(path).inputStream()) ?: return
         val orImg = getRotation(img, path)
-
-        if(img != null) mapPictures.value!![date] = orImg!!
+        mapPictures.value!![date] = orImg!!
     }
 
-    fun getRotation(img: Bitmap, path: String) : Bitmap? {
+    private fun getRotation(img: Bitmap, path: String) : Bitmap? {
         val exif = ExifInterface(path)
         val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
         return when(orientation) {
@@ -47,11 +47,10 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun orientImage(img: Bitmap?, angle: Int) : Bitmap? {
+    private fun orientImage(img: Bitmap?, angle: Int) : Bitmap? {
         if(img == null) return img
         val matrix = Matrix()
         matrix.postRotate(angle.toFloat())
         return Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
     }
-
 }

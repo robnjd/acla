@@ -13,6 +13,9 @@
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_rightroundedbox_grey.xml" value="0.2703125" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_roundedbox.xml" value="0.2703125" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_roundedbox_border.xml" value="0.2703125" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_roundedbox_bottom.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_roundedbox_three.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_roundedbox_top.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_roundedbox_whiteblue.xml" value="0.2703125" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_topleft_rbox.xml" value="0.2703125" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/drawable/dr_topright_rbox.xml" value="0.2703125" />
@@ -29,18 +32,23 @@
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/dialog_history.xml" value="0.1" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/dialog_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/dialog_progress.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_calendar.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_dashboard.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_entry.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_graph.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_calendar.xml" value="0.45342019543973944" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_dashboard.xml" value="0.3473227206946454" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_entry.xml" value="0.67" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_graph.xml" value="0.583984375" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_history.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_image.xml" value="0.25" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_load.xml" value="0.25" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_progress.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_session.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_settings.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_table.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_time.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_session.xml" value="0.6" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_settings.xml" value="0.46880907372400754" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_table.xml" value="0.4" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_time.xml" value="0.4" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/frag_tracker.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/item_aggregate.xml" value="0.33" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/item_backup.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/item_dropdown.xml" value="0.25" />
+        <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/item_history.xml" value="0.536" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/item_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/nav_header_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Rob/Repositories/acla/app/src/main/res/layout/table_backup.xml" value="0.25416666666666665" />

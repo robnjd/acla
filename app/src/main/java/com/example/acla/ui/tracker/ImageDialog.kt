@@ -14,6 +14,7 @@ import com.example.acla.ui.ConfirmDialog
 import kotlinx.android.synthetic.main.frag_image.view.*
 import java.io.File
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ImageDialog(val date: LocalDate) : DialogFragment() {
 
@@ -29,7 +30,7 @@ class ImageDialog(val date: LocalDate) : DialogFragment() {
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         dialog?.show()
-        val width = WindowManager.LayoutParams.WRAP_CONTENT
+        val width = WindowManager.LayoutParams.MATCH_PARENT
         val height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog?.window?.setLayout(width, height)
 
@@ -40,21 +41,30 @@ class ImageDialog(val date: LocalDate) : DialogFragment() {
         com = CommonRoom(requireContext())
         frag = view
 
-        frag.diTitle.text = date.format(com.dmyFormatter)
-        if(date !in vmMain.mapPictures.value!!) vmMain.fileImage(date)
-        frag.diImage.setImageBitmap(vmMain.mapPictures.value!![date])
+        frag.imgTitle.text = date.format(com.daydmonyFormatter)
+       // if(date !in vmMain.mapPictures.value!!) vmMain.fileImage(date)
+        frag.imgImage.setImageBitmap(vmMain.mapPictures.value!![date])
 
-        frag.diDelete.setOnClickListener {
+        frag.imgDelete.setOnClickListener {
             val dialogConfirm = ConfirmDialog("Delete image: /$date.png?")
             dialogConfirm.setTargetFragment(this, CONFIRM)
             dialogConfirm.show(parentFragmentManager, "Confirm")
         }
 
-        frag.diCamera.setOnClickListener {
+        frag.imgImage.setOnClickListener {
             val intent = Intent()
-            intent.putExtra("openCamera", date.format(com.ymdFormatter))
+            intent.putExtra("function", "camera")
+            intent.putExtra("date", date.format(com.ymdFormatter))
             targetFragment?.onActivityResult(targetRequestCode, AppCompatActivity.RESULT_OK, intent)
             dialog?.dismiss()
+        }
+
+        frag.imgBefore.setOnClickListener {
+            setAs("before")
+        }
+
+        frag.imgAfter.setOnClickListener {
+            setAs("after")
         }
     }
 
@@ -73,4 +83,11 @@ class ImageDialog(val date: LocalDate) : DialogFragment() {
         }
     }
 
+    fun setAs(befter: String) {
+        val intent = Intent()
+        intent.putExtra("function", befter)
+        intent.putExtra("date", date.format(com.ymdFormatter))
+        targetFragment?.onActivityResult(targetRequestCode, AppCompatActivity.RESULT_OK, intent)
+        dialog?.dismiss()
+    }
 }
