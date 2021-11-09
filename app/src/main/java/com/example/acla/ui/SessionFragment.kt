@@ -293,7 +293,7 @@ class SessionFragment : Fragment() {
         val mInterval = prefs["measureInterval"]?.split(" X ")
         val mRun = prefs["measureRun"]
         val mRoutine = prefs["measureRoutine"]?.split(" X ")
-        d(TAG, prefs.toString())
+
         if(mInterval?.size ?: 0 > 1) {
             frag.sesCount.hint = mInterval!![0]
             frag.sesIntervalMins.hint = mInterval[1].split(":")[0]

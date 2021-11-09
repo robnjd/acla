@@ -74,11 +74,11 @@ class SearchFilter(private val context: Context, private val searchLayout: Const
         } )
 
         btnBack.setOnClickListener {
-            changeTimeFrame(period, -1)
+            changeTimeFrame(period, 1)
         }
 
         btnNext.setOnClickListener {
-            changeTimeFrame(period, 1)
+            changeTimeFrame(period, -1)
         }
 
         btnDate.setOnClickListener {
