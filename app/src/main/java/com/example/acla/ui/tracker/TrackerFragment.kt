@@ -112,11 +112,10 @@ class TrackerFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(data == null || resultCode != AppCompatActivity.RESULT_OK) return
-
+        if(resultCode != AppCompatActivity.RESULT_OK) return
         when(requestCode) {
             CAMERA_REQUEST  -> handleRefresh()
-            IMAGE           -> when(data.extras?.getString("function")) {
+            IMAGE           -> when(data?.extras?.getString("function")) {
                                     "before"    ->  handleBefter(data, "before")
                                     "after"     ->  handleBefter(data, "after")
                                     "camera"    ->{ openCamera(data.extras!!.getString("date")!!)
@@ -227,11 +226,9 @@ class TrackerFragment : Fragment() {
         fileName = saveAs
 
         if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            d(TAG, "requestPermission")
             //activityResultLauncher.launch(Manifest.permission.CAMERA)
             requestPermissions(arrayOf(Manifest.permission.CAMERA), MY_CAMERA_PERMISSION_CODE)
         } else {
-            d(TAG, "cameraIntent")
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             createPhotoFile(cameraIntent, "$fileName.png")
             startActivityForResult(cameraIntent, CAMERA_REQUEST)
