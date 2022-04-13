@@ -49,16 +49,16 @@ class MainActivity : AppCompatActivity() {
 
         vmMain = ViewModelProvider(this)[MainViewModel::class.java]
 
-        vmMain.fabFunction.observe(this, {
-            function -> val icon = when(function){
-                                "start"     -> R.drawable.ic_whistle
-                                "pause"     -> R.drawable.ic_pause
-                                "camera"    -> R.drawable.ic_camera
-                                "add"       -> R.drawable.ic_add
-                                else        -> 0
-                            }
-                        fab.setImageResource(icon)
-        })
+        vmMain.fabFunction.observe(this) { function ->
+            val icon = when (function) {
+                "start"     -> R.drawable.ic_whistle
+                "pause"     -> R.drawable.ic_pause
+                "camera"    -> R.drawable.ic_camera
+                "add"       -> R.drawable.ic_add
+                else        -> 0
+            }
+            fab.setImageResource(icon)
+        }
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             screen = destination.label.toString()

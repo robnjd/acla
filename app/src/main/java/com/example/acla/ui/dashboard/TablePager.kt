@@ -194,7 +194,7 @@ class TablePager() : Fragment() {
             }
         }
 
-        val div = if(period == "Monthly") 12f else if(vmDash.period.value!! == "Yearly") 52f else 4f
+        val div = averageDivisor(period)
 
         val statRows = mutableListOf<MutableMap<String, String>>()
         for(workout in lstWorkouts) {
@@ -210,6 +210,28 @@ class TablePager() : Fragment() {
         }
 
         return TableAdapter(requireContext(), statRows, "dashboard")
+
+    }
+
+    private fun averageDivisor(period: String) : Float {
+        val today = LocalDate.now()
+        val start = vmDash.startDate.value!!
+        return when(period) {
+            "Weekly"    -> if(start.year == today.year && start.month == today.month &&
+                              start.dayOfMonth >= today.minusDays(today.dayOfWeek.value.toLong()).dayOfMonth &&
+                              start.dayOfMonth < today.plusDays((8-start.dayOfWeek.value).toLong()).dayOfMonth){
+                                (if(vmDash.period.value == "Yearly") start.dayOfYear else start.dayOfMonth)/7f
+                            } else {
+                                val end = start.withDayOfMonth(start.lengthOfMonth())
+                                (if(vmDash.period.value == "Yearly") end.dayOfYear else end.dayOfMonth)/7f
+                            }
+            "Monthly"   -> if(start.year == today.year && start.monthValue == today.monthValue){
+                                (start.monthValue - 1 + start.dayOfMonth/start.lengthOfMonth()).toFloat()
+                            } else {
+                                start.monthValue.toFloat()
+                            }
+            else        -> 1f
+        }
 
     }
 
